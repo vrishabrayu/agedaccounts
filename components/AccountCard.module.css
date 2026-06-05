@@ -1,0 +1,170 @@
+.card {
+  border: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  background: transparent;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+}
+
+.card.selected {
+  border-color: var(--foreground);
+  box-shadow: inset 0 0 0 1px var(--foreground);
+}
+
+.card.inCart {
+  opacity: 0.55;
+}
+
+/* Checkbox */
+.checkbox {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--foreground);
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.checkbox:hover:not(:disabled) {
+  border-color: var(--foreground);
+}
+
+.card.selected .checkbox {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+}
+
+.checkbox:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.checkboxEmpty {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-right: 2.5rem; /* space for checkbox */
+}
+
+.platformBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+}
+
+/* Body */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.niche {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.statGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.6rem;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.statValue {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+}
+
+.addBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--foreground);
+  border-radius: 0;
+  background: var(--foreground);
+  color: var(--background);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.addBtn:hover:not(:disabled) {
+  background: transparent;
+  color: var(--foreground);
+}
+
+.addedBtn {
+  background: transparent;
+  color: var(--muted-foreground);
+  border-color: var(--border);
+  cursor: default;
+}
+
+.addedBtn:hover {
+  background: transparent;
+  color: var(--muted-foreground);
+}

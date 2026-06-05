@@ -1,0 +1,79 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 4vw 4rem;
+  position: relative;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 7.5vw, 8rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  will-change: transform, opacity;
+}
+
+.arrow {
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+.arrowSmall {
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 4vw;
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 400;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 7rem 1.5rem 3rem;
+  }
+
+  .title {
+    font-size: clamp(2rem, 9vw, 4rem);
+  }
+
+  .arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .arrowSmall {
+    width: 24px;
+    height: 24px;
+  }
+
+  .scrollHint {
+    left: 1.5rem;
+  }
+}
