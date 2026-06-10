@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum CredentialStatus {
+  AVAILABLE
+  LOCKED
+  SOLD
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FAILED
+  FULFILLED
+}
+
+model Product {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  platform    String
+  niche       String?
+  followers   String?
+  engagement  String?
+  description String?
+  priceCents  Int
+  imageUrl    String?
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  credentials Credential[]
+  orders      Order[]
+
+  @@index([platform])
+  @@index([isActive])
+}
+
+model Credential {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  productId String           @db.ObjectId
+  username  String
+  password  String
+  status    CredentialStatus @default(AVAILABLE)
+  orderId   String?          @db.ObjectId
+  createdAt DateTime         @default(now())
+  soldAt    DateTime?
+  product   Product          @relation(fields: [productId], references: [id])
+  order     Order?           @relation(fields: [orderId], references: [id])
+
+  @@index([productId, status])
+  @@index([orderId])
+}
+
+model Order {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  customerEmail   String
+  productId       String       @db.ObjectId
+  quantity        Int
+  status          OrderStatus  @default(PENDING)
+  paymentProvider String       @default("stripe")
+  paymentIntentId String?      @unique
+  checkoutSession String?      @unique
+  totalCents      Int
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  fulfilledAt     DateTime?
+  product         Product      @relation(fields: [productId], references: [id])
+  credentials     Credential[]
+
+  @@index([productId])
+  @@index([customerEmail])
+  @@index([status])
+}

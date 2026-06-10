@@ -58,14 +58,29 @@ export default function AccountCard({
         <h3 className={styles.niche}>{account.niche}</h3>
 
         <div className={styles.stats}>
-          <div className={styles.statGroup}>
-            <span className={styles.statLabel}>Followers</span>
-            <span className={styles.statValue}>{account.followers}</span>
-          </div>
-          <div className={styles.statGroup}>
-            <span className={styles.statLabel}>Engagement</span>
-            <span className={styles.statValue}>{account.engagement}</span>
-          </div>
+          {account.followers ? (
+            <>
+              <div className={styles.statGroup}>
+                <span className={styles.statLabel}>Followers</span>
+                <span className={styles.statValue}>{account.followers}</span>
+              </div>
+              <div className={styles.statGroup}>
+                <span className={styles.statLabel}>Engagement</span>
+                <span className={styles.statValue}>{account.engagement || "N/A"}</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={styles.statGroup}>
+                <span className={styles.statLabel}>In Stock</span>
+                <span className={styles.statValue}>{account.availableStock}</span>
+              </div>
+              <div className={styles.statGroup}>
+                <span className={styles.statLabel}>Product</span>
+                <span className={styles.statValue}>{account.name}</span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

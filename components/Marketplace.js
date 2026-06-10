@@ -1,23 +1,27 @@
 "use client";
-import { useState, useCallback } from "react";
-import Hero from "../components/Hero";
-import Marquee from "../components/Marquee";
-import FilterMenu from "../components/FilterMenu";
-import AccountCard from "../components/AccountCard";
-import { mockAccounts } from "../data/mockAccounts";
+import { useMemo, useState, useCallback } from "react";
+import Hero from "./Hero";
+import Marquee from "./Marquee";
+import FilterMenu from "./FilterMenu";
+import AccountCard from "./AccountCard";
 import { useCart } from "../context/CartContext";
 import { ShoppingBag, X } from "lucide-react";
-import styles from "./page.module.css";
+import styles from "../app/(storefront)/page.module.css";
 
-export default function Home() {
+export default function Marketplace({ initialProducts = [] }) {
   const [selectedPlatform, setSelectedPlatform] = useState("All");
   const [selectedIds, setSelectedIds] = useState(new Set());
-  const { addMultipleToCart, cart } = useCart();
+  const { addMultipleToCart } = useCart();
 
-  const filteredAccounts =
+  const platforms = useMemo(
+    () => ["All", ...new Set(initialProducts.map((product) => product.platform))],
+    [initialProducts]
+  );
+
+  const filteredProducts =
     selectedPlatform === "All"
-      ? mockAccounts
-      : mockAccounts.filter((acc) => acc.platform === selectedPlatform);
+      ? initialProducts
+      : initialProducts.filter((product) => product.platform === selectedPlatform);
 
   const handleToggleSelect = useCallback((id) => {
     setSelectedIds((prev) => {
@@ -32,10 +36,10 @@ export default function Home() {
   }, []);
 
   const handleBulkAdd = () => {
-    const accountsToAdd = mockAccounts.filter((acc) =>
-      selectedIds.has(acc.id)
+    const productsToAdd = initialProducts.filter((product) =>
+      selectedIds.has(product.id)
     );
-    addMultipleToCart(accountsToAdd);
+    addMultipleToCart(productsToAdd);
     setSelectedIds(new Set());
   };
 
@@ -60,33 +64,34 @@ export default function Home() {
           </div>
 
           <FilterMenu
+            platforms={platforms}
             selected={selectedPlatform}
             onSelect={setSelectedPlatform}
           />
 
           <div className={styles.grid}>
-            {filteredAccounts.map((account) => (
+            {filteredProducts.map((product) => (
               <AccountCard
-                key={account.id}
-                account={account}
-                isSelected={selectedIds.has(account.id)}
+                key={product.id}
+                account={product}
+                isSelected={selectedIds.has(product.id)}
                 onToggleSelect={handleToggleSelect}
               />
             ))}
           </div>
 
-          {filteredAccounts.length === 0 && (
+          {filteredProducts.length === 0 && (
             <div className={styles.emptyState}>
               <p>
-                NO ACCOUNTS FOUND FOR {selectedPlatform.toUpperCase()}. CHECK
-                BACK LATER.
+                {initialProducts.length === 0
+                  ? "NO PRODUCTS IN STOCK YET. CHECK BACK SOON."
+                  : `NO ACCOUNTS FOUND FOR ${selectedPlatform.toUpperCase()}. CHECK BACK LATER.`}
               </p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Bulk add floating bar */}
       {selectedIds.size > 0 && (
         <div className={styles.bulkBar} id="bulk-add-bar">
           <div className={styles.bulkBarContent}>
