@@ -1,41 +1,120 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+/* ─────────────────────────────────────────────
+   Design Tokens — Void-black terminal aesthetic
+   The shader is the signature. Everything else:
+   quiet, precise, disciplined.
+───────────────────────────────────────────── */
 :root {
-  --background: #EFEFE9;
-  --foreground: #1a1a1a;
+  /* Surfaces */
+  --background: #0D0D0D;
+  --foreground: #EFEFE9;
 
-  --accent: #1a1a1a;
-  --accent-foreground: #EFEFE9;
+  /* Card surfaces */
+  --card: #1A1A1A;
+  --card-foreground: #EFEFE9;
 
-  --muted: rgba(0, 0, 0, 0.03);
-  --muted-foreground: rgba(0, 0, 0, 0.45);
+  /* Shadcn semantic tokens */
+  --primary: #EFEFE9;
+  --primary-foreground: #0D0D0D;
 
-  --border: rgba(0, 0, 0, 0.12);
-  --border-strong: rgba(0, 0, 0, 0.25);
-  --radius: 0px; /* brutalist: sharp corners on cards */
-  --radius-pill: 100px; /* pill shape for buttons/badges */
+  --secondary: #2A2A2A;
+  --secondary-foreground: #EFEFE9;
 
+  --muted: #1A1A1A;
+  --muted-foreground: rgba(239, 239, 233, 0.45);
+
+  /* Accent — velocity orange, used ONCE and with intent */
+  --accent-color: #FF3B00;
+  --accent-foreground-color: #EFEFE9;
+
+  /* Utility */
+  --destructive: #FF3B00;
+  --border: rgba(239, 239, 233, 0.10);
+  --border-strong: rgba(239, 239, 233, 0.22);
+  --input: rgba(239, 239, 233, 0.08);
+  --ring: rgba(239, 239, 233, 0.3);
+
+  /* Popover — used by navigation menu viewport */
+  --popover: #0F0F0F;
+  --popover-foreground: #EFEFE9;
+
+  /* Legacy compat — some old components still use these */
+  --accent: #EFEFE9;
+  --accent-foreground: #0D0D0D;
+
+  /* Shape */
+  --radius: 0px;
+  --radius-pill: 100px;
+
+  /* Type */
   --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Motion */
+  --transition-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --navbar-height: 72px;
 }
 
-* {
+/* ─── Reset ─── */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* Remove tap highlight on iOS */
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
   font-family: var(--font-mono);
+  scroll-snap-type: y proximity;
+  /* Prevent font size adjustment on iOS orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   line-height: 1.5;
+  /* iOS safe area support */
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+/* Ensure all interactive elements meet 44px minimum touch target (Apple HIG) */
+button, a, [role="button"] {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  touch-action: manipulation;
+}
+
+/* Override for inline/text links */
+p a, footer a, nav a {
+  min-height: unset;
+  display: inline;
+}
+
+/* ─── Dot grid — subtle texture on the void ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(239,239,233,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 a {
@@ -51,19 +130,20 @@ button {
   color: inherit;
 }
 
-/* Light frosted panel — replaces dark glassmorphism */
+/* ─── Glass panels ─── */
 .glass {
-  background: rgba(239, 239, 233, 0.85);
+  background: rgba(13, 13, 13, 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
 }
 
-/* Buttons — siberia.es pill style with border */
+/* ─── Buttons ─── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   padding: 0.875rem 2rem;
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
@@ -78,14 +158,14 @@ button {
 }
 
 .btn-primary {
-  background: var(--accent);
-  color: var(--accent-foreground);
-  border: 1px solid var(--accent);
+  background: var(--accent-color);
+  color: var(--foreground);
+  border: 1px solid var(--accent-color);
 }
 
 .btn-primary:hover {
   background: transparent;
-  color: var(--accent);
+  color: var(--accent-color);
 }
 
 .btn-secondary {
@@ -100,22 +180,23 @@ button {
   border-color: var(--foreground);
 }
 
-/* Selection / Utility */
+/* ─── Utility ─── */
 ::selection {
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--accent-color);
+  color: var(--foreground);
 }
 
-/* Custom scrollbar — minimal */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: var(--border-strong);
-  border-radius: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
