@@ -1,71 +1,48 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import styles from "./Hero.module.css";
-import { ArrowRight } from "lucide-react";
+import { useCallback } from "react";
+import { ShaderAnimation } from "@/components/ui/shader-lines";
+import { AnimatedHero } from "@/components/ui/animated-hero";
 
 export default function Hero() {
-  const container = useRef(null);
-  const textRef = useRef(null);
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, "0");
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      const period = now.getHours() >= 12 ? "PM" : "AM";
-      setTime(`${hours}:${minutes}${period}`);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+  const scrollToProducts = useCallback(() => {
+    const el = document.getElementById("marketplace");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  useGSAP(
-    () => {
-      gsap.from(textRef.current.children, {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: "power4.out",
-      });
-    },
-    { scope: container }
-  );
-
   return (
-    <section className={styles.hero} ref={container} id="hero-section">
-      <div className={styles.content}>
-        <h1 className={styles.title} ref={textRef}>
-          <span className={styles.line}>FAST ACCOUNTS</span>
-          <span className={styles.line}>
-            <ArrowRight
-              className={styles.arrow}
-              size={64}
-              strokeWidth={2.5}
-            />
-          </span>
-          <span className={styles.line}>
-            {time} — PREMIUM
-          </span>
-          <span className={styles.line}>
-            SOCIAL ACCOUNTS
-          </span>
-          <span className={styles.line}>
-            YOURS INSTANTLY
-            <ArrowRight
-              className={styles.arrowSmall}
-              size={48}
-              strokeWidth={2.5}
-            />
-          </span>
-        </h1>
+    <section
+      className="relative flex items-center justify-center overflow-hidden bg-[#0D0D0D]"
+      style={{ minHeight: "100svh" }}
+      id="hero-section"
+    >
+      {/* WebGL Shader — the signature element */}
+      <ShaderAnimation />
+
+      {/* Dark vignette overlay so text is legible against the shader */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(13,13,13,0.35) 0%, rgba(13,13,13,0.75) 100%)",
+          zIndex: 1,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Hero text content — layered above shader */}
+      <div className="relative w-full max-w-4xl mx-auto py-20 sm:py-28 lg:py-32 px-4 sm:px-6" style={{ zIndex: 2 }}>
+        <AnimatedHero onShopClick={scrollToProducts} />
       </div>
-      <div className={styles.scrollHint}>
-        <span>DISCOVER OUR MARKETPLACE</span>
+
+      {/* Scroll indicator */}
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
+        style={{ zIndex: 2 }}
+        aria-hidden="true"
+      >
+        <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-[#EFEFE9]">
+          Scroll
+        </span>
+        <div className="w-px h-8 bg-[#EFEFE9] origin-top animate-[grow_2s_ease-in-out_infinite]" />
       </div>
     </section>
   );

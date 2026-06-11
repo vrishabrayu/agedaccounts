@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 const CartContext = createContext();
 
@@ -7,6 +7,7 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [toast, setToast] = useState(null);
 
   // Load from local storage
   useEffect(() => {
@@ -28,6 +29,11 @@ export function CartProvider({ children }) {
     localStorage.setItem("fastaccounts-cart", JSON.stringify(cart));
   }, [cart]);
 
+  const showToast = useCallback((msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  }, []);
+
   const addToCart = (account) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === account.id);
@@ -39,6 +45,7 @@ export function CartProvider({ children }) {
       return [...prev, { ...account, quantity: 1 }];
     });
     setIsDrawerOpen(true);
+    showToast("Added! Your products will be e-mailed to you after checkout.");
   };
 
   const addMultipleToCart = (accounts) => {
@@ -59,6 +66,7 @@ export function CartProvider({ children }) {
     });
     if (accounts.length > 0) {
       setIsDrawerOpen(true);
+      showToast(`${accounts.length} item${accounts.length > 1 ? "s" : ""} added! Your products will be e-mailed to you after checkout.`);
     }
   };
 
@@ -103,6 +111,7 @@ export function CartProvider({ children }) {
         cartItemCount,
         isCheckoutOpen,
         setIsCheckoutOpen,
+        toast,
       }}
     >
       {children}

@@ -1,118 +1,184 @@
 "use client";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import gsap from "gsap";
 import { useCart } from "../context/CartContext";
-import styles from "./CheckoutModal.module.css";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, Shield } from "lucide-react";
 
 export default function CheckoutModal() {
-  const { cart, cartTotal, isCheckoutOpen, setIsCheckoutOpen, clearCart } =
-    useCart();
+  const { cart, cartTotal, isCheckoutOpen, setIsCheckoutOpen, clearCart } = useCart();
   const modalRef = useRef(null);
   const overlayRef = useRef(null);
+  const [paymentNotice, setPaymentNotice] = useState(null);
 
   const handleClose = useCallback(() => {
-    gsap.to(overlayRef.current, { opacity: 0, duration: 0.25 });
+    gsap.to(overlayRef.current, { opacity: 0, duration: 0.22 });
     gsap.to(modalRef.current, {
-      y: 20,
-      opacity: 0,
-      duration: 0.25,
+      y: 24, opacity: 0, duration: 0.22,
       onComplete: () => setIsCheckoutOpen(false),
     });
   }, [setIsCheckoutOpen]);
 
   useEffect(() => {
     if (!isCheckoutOpen) return;
+    gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.28 });
+    gsap.fromTo(modalRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power4.out" });
 
-    gsap.fromTo(
-      overlayRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.3 }
-    );
-    gsap.fromTo(
-      modalRef.current,
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.4, ease: "power4.out" }
-    );
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") handleClose();
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    const onKey = (e) => { if (e.key === "Escape") handleClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, [isCheckoutOpen, handleClose]);
 
   if (!isCheckoutOpen) return null;
 
   return (
     <div
-      className={styles.overlay}
       ref={overlayRef}
       onClick={handleClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="checkout-modal-title"
       id="checkout-modal"
+      style={{
+        position: "fixed", inset: 0, zIndex: 1000,
+        background: "rgba(0,0,0,0.8)", backdropFilter: "blur(8px)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "1rem",
+      }}
     >
       <div
-        className={styles.modal}
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "#111111",
+          border: "1px solid rgba(239,239,233,0.12)",
+          width: "100%",
+          maxWidth: "480px",
+          padding: "2rem",
+          position: "relative",
+        }}
       >
+        {/* Close */}
         <button
-          className={styles.closeBtn}
           onClick={handleClose}
-          aria-label="Close checkout modal"
+          aria-label="Close checkout"
+          style={{
+            position: "absolute", top: "1rem", right: "1rem",
+            color: "rgba(239,239,233,0.4)", transition: "color 0.2s",
+          }}
+          className="hover:text-[#EFEFE9]"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
-        <h2 id="checkout-modal-title" className={styles.title}>
-          SECURE CHECKOUT
-        </h2>
+        {/* Title */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem" }}>
+          <Shield size={14} color="#FF3B00" />
+          <h2
+            id="checkout-modal-title"
+            style={{
+              fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: "11px",
+              letterSpacing: "0.2em", textTransform: "uppercase", color: "#EFEFE9",
+            }}
+          >
+            Secure Checkout
+          </h2>
+        </div>
 
-        <div className={styles.summary}>
-          <div className={styles.summaryHeader}>
-            <span>ORDER SUMMARY</span>
-            <span>{cart.length} ITEMS</span>
+        {/* Order summary */}
+        <div style={{
+          background: "#1A1A1A", border: "1px solid rgba(239,239,233,0.07)",
+          padding: "1rem", marginBottom: "1.5rem",
+        }}>
+          <div style={{
+            display: "flex", justifyContent: "space-between",
+            fontFamily: "var(--font-mono)", fontSize: "9px", fontWeight: 700,
+            letterSpacing: "0.18em", textTransform: "uppercase",
+            color: "rgba(239,239,233,0.35)", marginBottom: "0.75rem",
+          }}>
+            <span>Order Summary</span>
+            <span>{cart.length} Item{cart.length !== 1 ? "s" : ""}</span>
           </div>
-          <div className={styles.summaryItems}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             {cart.map((item) => (
-              <div key={item.id} className={styles.summaryItem}>
-                <span>
-                  {item.platform} — {item.niche}
-                </span>
-                <span>${item.price}</span>
+              <div key={item.id} style={{
+                display: "flex", justifyContent: "space-between",
+                fontFamily: "var(--font-mono)", fontSize: "11px", color: "rgba(239,239,233,0.7)",
+              }}>
+                <span>{item.platform} — {item.niche}</span>
+                <span>${item.price * item.quantity}</span>
               </div>
             ))}
           </div>
-          <div className={styles.summaryTotal}>
-            <span>TOTAL</span>
-            <span>${cartTotal}</span>
+          <div style={{
+            display: "flex", justifyContent: "space-between", alignItems: "baseline",
+            marginTop: "0.875rem", paddingTop: "0.875rem",
+            borderTop: "1px solid rgba(239,239,233,0.08)",
+            fontFamily: "var(--font-mono)",
+          }}>
+            <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(239,239,233,0.4)" }}>
+              Total
+            </span>
+            <span style={{ fontSize: "22px", fontWeight: 700, color: "#EFEFE9", letterSpacing: "-0.02em" }}>
+              ${cartTotal}
+            </span>
           </div>
         </div>
 
-        <div className={styles.paymentMethods}>
-          <button className={styles.payBtn} onClick={() => {
-            alert("Stripe integration coming soon. Total: $" + cartTotal);
-            handleClose();
-            clearCart();
-          }}>
-            <span>PAY WITH CARD (STRIPE)</span>
-            <ArrowRight size={14} />
+        {/* Payment buttons */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          {/* Inline payment notice — shown when user clicks before Stripe is wired */}
+          {paymentNotice && (
+            <div style={{
+              padding: "0.875rem 1rem",
+              background: "rgba(255,59,0,0.08)",
+              border: "1px solid rgba(255,59,0,0.3)",
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#FF3B00",
+              lineHeight: 1.6,
+            }}>
+              {paymentNotice}
+            </div>
+          )}
+          <button
+            onClick={() => setPaymentNotice(`Stripe checkout coming soon. Your total of $${cartTotal} has been saved.`)}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
+              padding: "1rem", width: "100%", background: "#FF3B00", color: "#EFEFE9",
+              fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700,
+              letterSpacing: "0.15em", textTransform: "uppercase", border: "none", cursor: "pointer",
+              transition: "opacity 0.2s",
+            }}
+            className="hover:opacity-90"
+          >
+            Pay with Card (Stripe) <ArrowRight size={14} />
           </button>
-          <button className={styles.payBtnSecondary} onClick={() => {
-            alert("Crypto payment coming soon. Total: $" + cartTotal);
-            handleClose();
-            clearCart();
-          }}>
-            <span>PAY WITH CRYPTO</span>
-            <ArrowRight size={14} />
+          <button
+            onClick={() => setPaymentNotice(`Crypto checkout coming soon. Your total of $${cartTotal} has been saved.`)}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
+              padding: "1rem", width: "100%", background: "transparent", color: "rgba(239,239,233,0.65)",
+              fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700,
+              letterSpacing: "0.15em", textTransform: "uppercase",
+              border: "1px solid rgba(239,239,233,0.15)", cursor: "pointer",
+              transition: "border-color 0.2s, color 0.2s",
+            }}
+            className="hover:border-[rgba(239,239,233,0.4)] hover:text-[#EFEFE9]"
+          >
+            Pay with Crypto <ArrowRight size={14} />
           </button>
         </div>
 
-        <p className={styles.disclaimer}>
-          STRIPE INTEGRATION PLACEHOLDER — CONNECT YOUR ACCOUNT LATER.
+        <p style={{
+          marginTop: "1rem", textAlign: "center",
+          fontFamily: "var(--font-mono)", fontSize: "8px",
+          letterSpacing: "0.15em", textTransform: "uppercase",
+          color: "rgba(239,239,233,0.2)",
+        }}>
+          Payment integration — connect your provider later.
         </p>
       </div>
     </div>
