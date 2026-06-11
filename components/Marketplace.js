@@ -43,14 +43,14 @@ export default function Marketplace({ initialProducts = [] }) {
   const addableCount = selectedIds.size;
 
   return (
-    <main style={{ minHeight: "100vh", background: "#0D0D0D" }}>
+    <main style={{ minHeight: "100vh", background: "var(--background)" }}>
       <Hero />
 
       <section
         id="marketplace"
         style={{
           padding: "4rem clamp(1rem, 4vw, 3rem) 5rem",
-          background: "#0D0D0D",
+          background: "var(--background)",
           minHeight: "100vh",
           scrollMarginTop: "var(--navbar-height, 72px)",
         }}
@@ -67,13 +67,13 @@ export default function Marketplace({ initialProducts = [] }) {
               style={{
                 display: "inline-block",
                 padding: "0.25rem 0.75rem",
-                border: "1px solid rgba(239,239,233,0.15)",
+                border: "1px solid var(--border-strong)",
                 fontFamily: "var(--font-mono)",
                 fontSize: "9px",
                 fontWeight: 700,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(239,239,233,0.4)",
+                color: "var(--text-subtle)",
                 marginBottom: "1rem",
               }}
             >
@@ -85,7 +85,7 @@ export default function Marketplace({ initialProducts = [] }) {
                 fontWeight: 700,
                 fontSize: "clamp(1.75rem, 4vw, 3rem)",
                 letterSpacing: "-0.02em",
-                color: "#EFEFE9",
+                color: "var(--foreground)",
                 lineHeight: 1.1,
               }}
             >
@@ -97,7 +97,7 @@ export default function Marketplace({ initialProducts = [] }) {
                 fontSize: "10px",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "rgba(239,239,233,0.35)",
+                color: "var(--text-subtle)",
                 marginTop: "0.5rem",
               }}
             >
@@ -117,12 +117,12 @@ export default function Marketplace({ initialProducts = [] }) {
               gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
               gap: "1px",
               marginTop: "2rem",
-              background: "rgba(239,239,233,0.06)",
-              border: "1px solid rgba(239,239,233,0.06)",
+              background: "var(--grid-line)",
+              border: "1px solid var(--grid-line)",
             }}
           >
             {filteredProducts.map((product) => (
-              <div key={product.id} style={{ background: "#0D0D0D" }}>
+              <div key={product.id} style={{ background: "var(--background)" }}>
                 <AccountCard
                   account={product}
                   isSelected={selectedIds.has(product.id)}
@@ -137,8 +137,8 @@ export default function Marketplace({ initialProducts = [] }) {
               style={{
                 padding: "4rem 2rem",
                 textAlign: "center",
-                border: "1px solid rgba(239,239,233,0.08)",
-                color: "rgba(239,239,233,0.3)",
+                border: "1px solid var(--border)",
+                color: "var(--text-faint)",
                 marginTop: "2rem",
                 fontFamily: "var(--font-mono)",
                 fontSize: "10px",
@@ -169,8 +169,8 @@ export default function Marketplace({ initialProducts = [] }) {
             zIndex: 800,
             padding: "0.75rem 1rem",
             paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))",
-            background: "#111111",
-            borderTop: "1px solid rgba(239,239,233,0.18)",
+            background: "var(--bulk-bar-bg)",
+            borderTop: "1px solid var(--border-strong)",
             backdropFilter: "blur(20px)",
           }}
           id="bulk-add-bar"
@@ -191,7 +191,7 @@ export default function Marketplace({ initialProducts = [] }) {
                 fontWeight: 700,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#EFEFE9",
+                color: "var(--foreground)",
                 whiteSpace: "nowrap",
               }}
             >
@@ -210,13 +210,12 @@ export default function Marketplace({ initialProducts = [] }) {
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "rgba(239,239,233,0.4)",
+                  color: "var(--text-subtle)",
                   background: "transparent",
-                  border: "1px solid rgba(239,239,233,0.1)",
+                  border: "1px solid var(--border)",
                   cursor: "pointer",
                   transition: "all 0.2s",
                 }}
-                className="hover:text-[#EFEFE9] hover:border-[rgba(239,239,233,0.3)]"
               >
                 <X size={12} /> Clear
               </button>
@@ -234,8 +233,8 @@ export default function Marketplace({ initialProducts = [] }) {
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  background: "#FF3B00",
-                  color: "#EFEFE9",
+                  background: "var(--accent-color)",
+                  color: "var(--accent-foreground-color)",
                   border: "none",
                   cursor: "pointer",
                   transition: "opacity 0.2s",

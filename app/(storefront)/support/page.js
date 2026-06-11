@@ -33,7 +33,7 @@ export default function Support() {
         minHeight: "100vh",
         paddingTop: "calc(var(--navbar-height, 72px) + 3rem)",
         paddingBottom: "5rem",
-        background: "#0D0D0D",
+        background: "var(--background)",
         paddingLeft: "clamp(1rem, 5vw, 4rem)",
         paddingRight: "clamp(1rem, 5vw, 4rem)",
       }}
@@ -51,7 +51,7 @@ export default function Support() {
             fontWeight: 700,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(239,239,233,0.45)",
+            color: "var(--filter-inactive)",
             minHeight: "unset",
             transition: "color 0.2s",
           }}
@@ -65,13 +65,13 @@ export default function Support() {
             style={{
               display: "inline-block",
               padding: "0.25rem 0.75rem",
-              border: "1px solid rgba(239,239,233,0.15)",
+              border: "1px solid var(--border-strong)",
               fontFamily: "var(--font-mono)",
               fontSize: "9px",
               fontWeight: 700,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(239,239,233,0.4)",
+              color: "var(--text-subtle)",
               marginBottom: "1rem",
             }}
           >
@@ -83,7 +83,7 @@ export default function Support() {
               fontWeight: 700,
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               letterSpacing: "-0.02em",
-              color: "#EFEFE9",
+              color: "var(--foreground)",
               lineHeight: 1.1,
             }}
           >
@@ -95,7 +95,7 @@ export default function Support() {
               fontSize: "10px",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: "rgba(239,239,233,0.35)",
+              color: "var(--muted-foreground)",
               marginTop: "0.5rem",
             }}
           >
@@ -107,8 +107,8 @@ export default function Support() {
         <div
           style={{
             padding: "2rem",
-            border: "1px solid rgba(239,239,233,0.10)",
-            background: "#141414",
+            border: "1px solid var(--border)",
+            background: "var(--card)",
             marginBottom: "3rem",
             display: "flex",
             flexDirection: "column",
@@ -122,7 +122,7 @@ export default function Support() {
               fontWeight: 700,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(239,239,233,0.35)",
+              color: "var(--muted-foreground)",
             }}
           >
             Direct Contact
@@ -132,7 +132,7 @@ export default function Support() {
               fontFamily: "var(--font-mono)",
               fontWeight: 700,
               fontSize: "clamp(1rem, 2.5vw, 1.5rem)",
-              color: "#EFEFE9",
+              color: "var(--foreground)",
               letterSpacing: "-0.01em",
             }}
           >
@@ -146,7 +146,7 @@ export default function Support() {
               gap: "0.75rem",
               padding: "0.875rem 1.5rem",
               background: "#FF3B00",
-              color: "#EFEFE9",
+              color: "var(--foreground)",
               fontFamily: "var(--font-mono)",
               fontSize: "11px",
               fontWeight: 700,
@@ -172,7 +172,7 @@ export default function Support() {
               fontWeight: 700,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(239,239,233,0.35)",
+              color: "var(--muted-foreground)",
               marginBottom: "1.5rem",
             }}
           >
@@ -183,8 +183,8 @@ export default function Support() {
               display: "flex",
               flexDirection: "column",
               gap: "1px",
-              background: "rgba(239,239,233,0.06)",
-              border: "1px solid rgba(239,239,233,0.06)",
+              background: "var(--grid-line)",
+              border: "1px solid var(--grid-line)",
             }}
           >
             {faqs.map(({ q, a }) => (
@@ -192,7 +192,7 @@ export default function Support() {
                 key={q}
                 style={{
                   padding: "1.5rem",
-                  background: "#0D0D0D",
+                  background: "var(--background)",
                   display: "flex",
                   flexDirection: "column",
                   gap: "0.5rem",
@@ -203,7 +203,7 @@ export default function Support() {
                     fontFamily: "var(--font-mono)",
                     fontSize: "12px",
                     fontWeight: 700,
-                    color: "#EFEFE9",
+                    color: "var(--foreground)",
                     letterSpacing: "0.02em",
                   }}
                 >
@@ -213,7 +213,7 @@ export default function Support() {
                   style={{
                     fontFamily: "var(--font-sans, Inter, sans-serif)",
                     fontSize: "0.9rem",
-                    color: "rgba(239,239,233,0.55)",
+                    color: "var(--muted-foreground)",
                     lineHeight: 1.65,
                   }}
                 >

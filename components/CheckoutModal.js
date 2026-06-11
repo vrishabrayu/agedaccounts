@@ -49,8 +49,8 @@ export default function CheckoutModal() {
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "#111111",
-          border: "1px solid rgba(239,239,233,0.12)",
+          background: "var(--surface-elevated)",
+          border: "1px solid var(--border-strong)",
           width: "100%",
           maxWidth: "480px",
           padding: "2rem",
@@ -63,9 +63,9 @@ export default function CheckoutModal() {
           aria-label="Close checkout"
           style={{
             position: "absolute", top: "1rem", right: "1rem",
-            color: "rgba(239,239,233,0.4)", transition: "color 0.2s",
+            color: "var(--text-subtle)", transition: "color 0.2s",
           }}
-          className="hover:text-[#EFEFE9]"
+          className="hover:text-[var(--foreground)]"
         >
           <X size={18} />
         </button>
@@ -77,7 +77,7 @@ export default function CheckoutModal() {
             id="checkout-modal-title"
             style={{
               fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: "11px",
-              letterSpacing: "0.2em", textTransform: "uppercase", color: "#EFEFE9",
+              letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--foreground)",
             }}
           >
             Secure Checkout
@@ -86,14 +86,14 @@ export default function CheckoutModal() {
 
         {/* Order summary */}
         <div style={{
-          background: "#1A1A1A", border: "1px solid rgba(239,239,233,0.07)",
+          background: "var(--card)", border: "1px solid var(--border)",
           padding: "1rem", marginBottom: "1.5rem",
         }}>
           <div style={{
             display: "flex", justifyContent: "space-between",
             fontFamily: "var(--font-mono)", fontSize: "9px", fontWeight: 700,
             letterSpacing: "0.18em", textTransform: "uppercase",
-            color: "rgba(239,239,233,0.35)", marginBottom: "0.75rem",
+            color: "var(--muted-foreground)", marginBottom: "0.75rem",
           }}>
             <span>Order Summary</span>
             <span>{cart.length} Item{cart.length !== 1 ? "s" : ""}</span>
@@ -102,7 +102,7 @@ export default function CheckoutModal() {
             {cart.map((item) => (
               <div key={item.id} style={{
                 display: "flex", justifyContent: "space-between",
-                fontFamily: "var(--font-mono)", fontSize: "11px", color: "rgba(239,239,233,0.7)",
+                fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--muted-foreground)",
               }}>
                 <span>{item.platform} — {item.niche}</span>
                 <span>${item.price * item.quantity}</span>
@@ -112,13 +112,13 @@ export default function CheckoutModal() {
           <div style={{
             display: "flex", justifyContent: "space-between", alignItems: "baseline",
             marginTop: "0.875rem", paddingTop: "0.875rem",
-            borderTop: "1px solid rgba(239,239,233,0.08)",
+            borderTop: "1px solid var(--border)",
             fontFamily: "var(--font-mono)",
           }}>
-            <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(239,239,233,0.4)" }}>
+            <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
               Total
             </span>
-            <span style={{ fontSize: "22px", fontWeight: 700, color: "#EFEFE9", letterSpacing: "-0.02em" }}>
+            <span style={{ fontSize: "22px", fontWeight: 700, color: "var(--foreground)", letterSpacing: "-0.02em" }}>
               ${cartTotal}
             </span>
           </div>
@@ -147,7 +147,7 @@ export default function CheckoutModal() {
             onClick={() => setPaymentNotice(`Stripe checkout coming soon. Your total of $${cartTotal} has been saved.`)}
             style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
-              padding: "1rem", width: "100%", background: "#FF3B00", color: "#EFEFE9",
+              padding: "1rem", width: "100%", background: "#FF3B00", color: "var(--foreground)",
               fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700,
               letterSpacing: "0.15em", textTransform: "uppercase", border: "none", cursor: "pointer",
               transition: "opacity 0.2s",
@@ -160,13 +160,13 @@ export default function CheckoutModal() {
             onClick={() => setPaymentNotice(`Crypto checkout coming soon. Your total of $${cartTotal} has been saved.`)}
             style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
-              padding: "1rem", width: "100%", background: "transparent", color: "rgba(239,239,233,0.65)",
+              padding: "1rem", width: "100%", background: "transparent", color: "var(--muted-foreground)",
               fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700,
               letterSpacing: "0.15em", textTransform: "uppercase",
-              border: "1px solid rgba(239,239,233,0.15)", cursor: "pointer",
+              border: "1px solid var(--border-strong)", cursor: "pointer",
               transition: "border-color 0.2s, color 0.2s",
             }}
-            className="hover:border-[rgba(239,239,233,0.4)] hover:text-[#EFEFE9]"
+            className="hover:border-[var(--text-subtle)] hover:text-[var(--foreground)]"
           >
             Pay with Crypto <ArrowRight size={14} />
           </button>
@@ -176,7 +176,7 @@ export default function CheckoutModal() {
           marginTop: "1rem", textAlign: "center",
           fontFamily: "var(--font-mono)", fontSize: "8px",
           letterSpacing: "0.15em", textTransform: "uppercase",
-          color: "rgba(239,239,233,0.2)",
+          color: "var(--border-strong)",
         }}>
           Payment integration — connect your provider later.
         </p>

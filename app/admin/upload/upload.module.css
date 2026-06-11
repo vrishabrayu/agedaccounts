@@ -42,7 +42,7 @@
 .productsPanel {
   border: 1px solid var(--border);
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.22);
+  background: var(--card);
 }
 
 .sectionTitle {

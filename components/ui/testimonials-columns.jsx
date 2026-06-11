@@ -16,7 +16,7 @@ export const TestimonialsColumn = ({ className, testimonials, duration = 10 }) =
             {testimonials.map(({ text, image, name, role, platform }, i) => (
               <div
                 key={i}
-                className="p-6 border border-[rgba(239,239,233,0.1)] bg-[#1A1A1A] max-w-xs w-full"
+                className="p-6 border border-[var(--border)] bg-[var(--card)] max-w-xs w-full"
                 style={{ borderRadius: 0 }}
               >
                 {/* Platform tag */}
@@ -25,10 +25,10 @@ export const TestimonialsColumn = ({ className, testimonials, duration = 10 }) =
                     {platform}
                   </div>
                 )}
-                <p className="text-sm font-sans text-[rgba(239,239,233,0.75)] leading-relaxed">
+                <p className="text-sm font-sans text-[var(--foreground)] leading-relaxed">
                   &ldquo;{text}&rdquo;
                 </p>
-                <div className="flex items-center gap-3 mt-5 pt-4 border-t border-[rgba(239,239,233,0.08)]">
+                <div className="flex items-center gap-3 mt-5 pt-4 border-t border-[var(--border)]">
                   <Image
                     width={36}
                     height={36}
@@ -37,10 +37,10 @@ export const TestimonialsColumn = ({ className, testimonials, duration = 10 }) =
                     className="h-9 w-9 rounded-full object-cover grayscale"
                   />
                   <div className="flex flex-col">
-                    <div className="text-xs font-mono font-bold text-[#EFEFE9] tracking-wide">
+                    <div className="text-xs font-mono font-bold text-[var(--foreground)] tracking-wide">
                       {name}
                     </div>
-                    <div className="text-[10px] font-mono text-[rgba(239,239,233,0.4)] tracking-wider uppercase mt-0.5">
+                    <div className="text-[10px] font-mono text-[var(--text-subtle)] tracking-wider uppercase mt-0.5">
                       {role}
                     </div>
                   </div>
@@ -126,7 +126,7 @@ const thirdColumn  = testimonialData.slice(6, 9);
 
 export function Testimonials() {
   return (
-    <section className="py-24 relative bg-[#0D0D0D]" id="testimonials">
+    <section className="py-24 relative bg-[var(--background)]" id="testimonials">
       {/* Section header */}
       <div className="max-w-screen-xl mx-auto px-6 mb-14">
         <motion.div
@@ -136,16 +136,16 @@ export function Testimonials() {
           viewport={{ once: true }}
           className="flex flex-col items-center text-center"
         >
-          <span className="inline-block px-4 py-1 border border-[rgba(239,239,233,0.15)] text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[rgba(239,239,233,0.45)] mb-6">
+          <span className="inline-block px-4 py-1 border border-[var(--border-strong)] text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[var(--filter-inactive)] mb-6">
             Customer Proof
           </span>
           <h2
-            className="font-mono font-bold text-[#EFEFE9] tracking-tighter"
+            className="font-mono font-bold text-[var(--foreground)] tracking-tighter"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
             WHAT OUR BUYERS SAY
           </h2>
-          <p className="mt-4 text-sm font-sans text-[rgba(239,239,233,0.45)] max-w-md">
+          <p className="mt-4 text-sm font-sans text-[var(--filter-inactive)] max-w-md">
             Real results from real customers — marketers, flippers, and founders who trust us.
           </p>
         </motion.div>
