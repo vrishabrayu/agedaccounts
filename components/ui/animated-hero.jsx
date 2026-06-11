@@ -41,7 +41,7 @@ export function AnimatedHero({ onShopClick }) {
         className="font-mono font-bold text-[#EFEFE9] tracking-tighter leading-none"
         style={{ fontSize: "clamp(2.5rem, 10vw, 7rem)" }}
       >
-        FAST ACCOUNTS
+        AGED ACCOUNTS
       </motion.h1>
 
       {/* Rotating word — fixed height that's generous enough for animation */}

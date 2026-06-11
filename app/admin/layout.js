@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Admin | Fast Accounts",
+  title: "Admin | Aged Accounts",
   robots: { index: false, follow: false },
 };
 

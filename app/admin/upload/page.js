@@ -64,7 +64,7 @@ export default function AdminUploadPage() {
   };
 
   useEffect(() => {
-    const savedPassword = window.localStorage.getItem("fastaccounts-admin-password");
+    const savedPassword = window.localStorage.getItem("agedaccounts-admin-password");
     if (savedPassword) {
       setForm((current) => ({ ...current, adminPassword: savedPassword }));
     }
@@ -72,7 +72,7 @@ export default function AdminUploadPage() {
 
   useEffect(() => {
     if (form.adminPassword) {
-      window.localStorage.setItem("fastaccounts-admin-password", form.adminPassword);
+      window.localStorage.setItem("agedaccounts-admin-password", form.adminPassword);
     }
   }, [form.adminPassword]);
 

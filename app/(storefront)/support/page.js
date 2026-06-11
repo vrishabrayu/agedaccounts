@@ -2,9 +2,9 @@ import Link from "next/link";
 import { ArrowLeft, Mail } from "lucide-react";
 
 export const metadata = {
-  title: "Help & Support | Fast Accounts",
+  title: "Help & Support | Aged Accounts",
   description:
-    "Get help with your Fast Accounts purchase. Fast support, instant delivery, secure transactions.",
+    "Get help with your Aged Accounts purchase. Fast support, instant delivery, secure transactions.",
 };
 
 const faqs = [

@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
 
   // Load from local storage
   useEffect(() => {
-    const saved = localStorage.getItem("fastaccounts-cart");
+    const saved = localStorage.getItem("agedaccounts-cart");
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -26,7 +26,7 @@ export function CartProvider({ children }) {
 
   // Save to local storage
   useEffect(() => {
-    localStorage.setItem("fastaccounts-cart", JSON.stringify(cart));
+    localStorage.setItem("agedaccounts-cart", JSON.stringify(cart));
   }, [cart]);
 
   const showToast = useCallback((msg) => {

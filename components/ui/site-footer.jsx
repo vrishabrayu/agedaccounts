@@ -13,7 +13,7 @@ export function SiteFooter() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-12">
           <div>
             <span className="font-mono font-bold text-[#EFEFE9] text-xl tracking-tighter">
-              FAST ACCOUNTS
+              AGED ACCOUNTS
             </span>
             <p className="mt-2 text-[11px] font-mono text-[rgba(239,239,233,0.35)] tracking-wider uppercase max-w-xs">
               Premium social media assets. <br />Delivered instantly.
@@ -106,7 +106,7 @@ export function SiteFooter() {
         {/* Bottom row */}
         <div className="border-t border-[rgba(239,239,233,0.08)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[10px] font-mono text-[rgba(239,239,233,0.25)] tracking-widest uppercase">
-            © {new Date().getFullYear()} Fast Accounts. All rights reserved.
+            © {new Date().getFullYear()} Aged Accounts. All rights reserved.
           </p>
           <button
             onClick={scrollToTop}

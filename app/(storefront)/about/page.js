@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export const metadata = {
-  title: "About Us | Fast Accounts",
-  description: "Learn about Fast Accounts — premium social media assets for your brand.",
+  title: "About Us | Aged Accounts",
+  description: "Learn about Aged Accounts — premium social media assets for your brand.",
 };
 
 export default function About() {
@@ -98,7 +98,7 @@ export default function About() {
           }}
         >
           <p>
-            Welcome to <strong style={{ color: "#EFEFE9", fontFamily: "var(--font-mono)" }}>Fast Accounts</strong>. We
+            Welcome to <strong style={{ color: "#EFEFE9", fontFamily: "var(--font-mono)" }}>Aged Accounts</strong>. We
             specialise in providing high-quality, premium social media accounts tailored to help your brand grow
             instantly.
           </p>

@@ -181,7 +181,7 @@ export default function Navbar() {
               display: "inline-block",
             }}
           />
-          FAST ACCOUNTS
+          AGED ACCOUNTS
         </Link>
 
         {/* ── Desktop Navigation Menu ── */}
@@ -380,7 +380,7 @@ function MobileNav() {
                 flexShrink: 0,
               }}
             />
-            FAST ACCOUNTS
+            AGED ACCOUNTS
           </span>
         </div>
 
