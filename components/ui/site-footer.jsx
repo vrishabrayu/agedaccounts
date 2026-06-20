@@ -43,6 +43,7 @@ export function SiteFooter() {
             {[
               { href: "#marketplace", label: "Marketplace" },
               { href: "/about", label: "About Us" },
+              { href: "/blog", label: "Blog" },
             ].map((l) => (
               <Link
                 key={l.href}
