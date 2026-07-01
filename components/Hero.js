@@ -1,6 +1,6 @@
 "use client";
 import { useCallback } from "react";
-import { ShaderAnimation } from "@/components/ui/shader-lines";
+import { DottedSurface } from "@/components/ui/dotted-surface";
 import { AnimatedHero } from "@/components/ui/animated-hero";
 
 export default function Hero() {
@@ -15,21 +15,37 @@ export default function Hero() {
       style={{ minHeight: "100svh" }}
       id="hero-section"
     >
-      {/* WebGL Shader — the signature element */}
-      <ShaderAnimation />
+      {/* WebGL dotted wave — scoped to this section */}
+      <DottedSurface className="z-0" />
 
-      {/* Dark vignette overlay so text is legible against the shader */}
+      {/* Radial glow: bright light emanating from center, sitting behind CTA */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(239,239,233,0.09) 0%, rgba(239,239,233,0.04) 35%, transparent 70%)",
+          filter: "blur(40px)",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Outer vignette so edges stay dark and text pops */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(13,13,13,0.35) 0%, rgba(13,13,13,0.75) 100%)",
+          background:
+            "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(13,13,13,0.80) 100%)",
           zIndex: 1,
         }}
         aria-hidden="true"
       />
 
-      {/* Hero text content — layered above shader */}
-      <div className="relative w-full max-w-4xl mx-auto py-20 sm:py-28 lg:py-32 px-4 sm:px-6" style={{ zIndex: 2 }}>
+      {/* Hero text content */}
+      <div
+        className="relative w-full max-w-4xl mx-auto py-20 sm:py-28 lg:py-32 px-4 sm:px-6"
+        style={{ zIndex: 2 }}
+      >
         <AnimatedHero onShopClick={scrollToProducts} />
       </div>
 
@@ -47,3 +63,4 @@ export default function Hero() {
     </section>
   );
 }
+

@@ -63,7 +63,9 @@
 }
 
 /* ─── Reset ─── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -93,7 +95,9 @@ body {
 }
 
 /* Ensure all interactive elements meet 44px minimum touch target (Apple HIG) */
-button, a, [role="button"] {
+button,
+a,
+[role="button"] {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -101,7 +105,9 @@ button, a, [role="button"] {
 }
 
 /* Override for inline/text links */
-p a, footer a, nav a {
+p a,
+footer a,
+nav a {
   min-height: unset;
   display: inline;
 }
@@ -111,7 +117,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(239,239,233,0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(239, 239, 233, 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
   z-index: 0;
@@ -186,8 +192,14 @@ button {
   color: var(--foreground);
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-strong);
   border-radius: 2px;
@@ -195,7 +207,10 @@ button {
 
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
