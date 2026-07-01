@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "Is the transaction secure?",
-    a: "Yes. We use Stripe and trusted crypto gateways with full encryption. Your payment data never touches our servers.",
+    a: "Yes. We use NOWPayments crypto checkout with full encryption. Your payment data never touches our servers.",
   },
   {
     q: "What if my account gets banned?",

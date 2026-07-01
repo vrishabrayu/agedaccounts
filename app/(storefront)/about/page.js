@@ -125,7 +125,7 @@ export default function About() {
             {[
               { label: "Hand Farmed", desc: "Every account is built by real activity, not bots." },
               { label: "Instant Delivery", desc: "Access handed over minutes after payment." },
-              { label: "Secure Checkout", desc: "Stripe + crypto options, fully encrypted." },
+              { label: "Secure Checkout", desc: "NOWPayments crypto checkout, fully encrypted." },
               { label: "Verified Quality", desc: "All accounts pass our 14-point audit." },
             ].map(({ label, desc }) => (
               <div

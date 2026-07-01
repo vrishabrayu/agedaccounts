@@ -60,20 +60,21 @@ model Credential {
 }
 
 model Order {
-  id              String       @id @default(auto()) @map("_id") @db.ObjectId
-  customerEmail   String
-  productId       String       @db.ObjectId
-  quantity        Int
-  status          OrderStatus  @default(PENDING)
-  paymentProvider String       @default("stripe")
-  paymentIntentId String?      @unique
-  checkoutSession String?      @unique
-  totalCents      Int
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  fulfilledAt     DateTime?
-  product         Product      @relation(fields: [productId], references: [id])
-  credentials     Credential[]
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  customerEmail    String
+  productId        String       @db.ObjectId
+  quantity         Int
+  status           OrderStatus  @default(PENDING)
+  paymentProvider  String       @default("nowpayments")
+  paymentId        String?
+  checkoutSession  String?
+  orderDescription String?
+  totalCents       Int
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  fulfilledAt      DateTime?
+  product          Product      @relation(fields: [productId], references: [id])
+  credentials      Credential[]
 
   @@index([productId])
   @@index([customerEmail])
