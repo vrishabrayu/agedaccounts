@@ -32,7 +32,6 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "./ui/accordion";
-import ThemeToggle from "./ThemeToggle";
 
 // ─── Platform data ────────────────────────────────────────────────
 const platformLinks = [
@@ -148,10 +147,10 @@ export default function Navbar() {
           alignItems: "center",
           paddingLeft: "clamp(1rem, 4vw, 2.5rem)",
           paddingRight: "clamp(1rem, 4vw, 2.5rem)",
-          background: "var(--navbar-bg)",
+          background: "rgba(10,10,10,0.92)",
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
-          borderBottom: "1px solid var(--border)",
+          borderBottom: "1px solid rgba(239,239,233,0.07)",
         }}
       >
         {/* ── Logo ── */}
@@ -163,7 +162,7 @@ export default function Navbar() {
             fontSize: "clamp(11px, 1.5vw, 13px)",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
-            color: "var(--foreground)",
+            color: "#EFEFE9",
             whiteSpace: "nowrap",
             minHeight: "unset",
             display: "flex",
@@ -195,7 +194,7 @@ export default function Navbar() {
                 <NavigationMenuContent>
                   <div className="grid w-full md:w-[720px] md:grid-cols-[1fr_0.38fr]">
                     {/* Left: 3 grid cards */}
-                    <ul className="grid grid-cols-3 gap-3 p-4 border-r border-[var(--border)]">
+                    <ul className="grid grid-cols-3 gap-3 p-4 border-r border-[rgba(239,239,233,0.07)]">
                       {platformLinks.slice(0, 3).map((link) => (
                         <li key={link.title}>
                           <NavGridCard link={link} />
@@ -241,7 +240,6 @@ export default function Navbar() {
 
         {/* ── Right actions ── */}
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <ThemeToggle />
           {/* Cart */}
           <button
             onClick={toggleDrawer}
@@ -254,13 +252,13 @@ export default function Navbar() {
               alignItems: "center",
               justifyContent: "center",
               background: "transparent",
-              border: "1px solid var(--border-strong)",
-              color: "var(--muted-foreground)",
+              border: "1px solid rgba(239,239,233,0.12)",
+              color: "rgba(239,239,233,0.7)",
               cursor: "pointer",
               transition: "all 0.2s",
               flexShrink: 0,
             }}
-            className="hover:border-[var(--border-strong)] hover:text-foreground"
+            className="hover:border-[rgba(239,239,233,0.35)] hover:text-[#EFEFE9]"
           >
             <ShoppingCart size={16} />
             {cartItemCount > 0 && (
@@ -276,7 +274,7 @@ export default function Navbar() {
                   fontFamily: "var(--font-mono)",
                   fontSize: "8px",
                   fontWeight: 700,
-                  color: "var(--foreground)",
+                  color: "#EFEFE9",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -303,7 +301,7 @@ export default function Navbar() {
               display: "flex",
               alignItems: "center",
               background: "#FF3B00",
-              color: "var(--foreground)",
+              color: "#EFEFE9",
               border: "1px solid #FF3B00",
               cursor: "pointer",
               transition: "all 0.2s",
@@ -337,8 +335,8 @@ function MobileNav() {
             alignItems: "center",
             justifyContent: "center",
             background: "transparent",
-            border: "1px solid var(--border-strong)",
-            color: "var(--muted-foreground)",
+            border: "1px solid rgba(239,239,233,0.12)",
+            color: "rgba(239,239,233,0.65)",
             cursor: "pointer",
             transition: "all 0.2s",
           }}
@@ -356,7 +354,7 @@ function MobileNav() {
             alignItems: "center",
             paddingLeft: "1.25rem",
             paddingRight: "3.5rem",
-            borderBottom: "1px solid var(--border)",
+            borderBottom: "1px solid rgba(239,239,233,0.08)",
           }}
         >
           <span
@@ -366,7 +364,7 @@ function MobileNav() {
               fontSize: "11px",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "var(--foreground)",
+              color: "#EFEFE9",
               display: "flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -412,7 +410,7 @@ function MobileNav() {
             style={{
               marginTop: "1rem",
               paddingTop: "1rem",
-              borderTop: "1px solid var(--border)",
+              borderTop: "1px solid rgba(239,239,233,0.08)",
               display: "flex",
               flexDirection: "column",
               gap: "0.25rem",
@@ -428,7 +426,7 @@ function MobileNav() {
                   letterSpacing: "0.15em",
                   textTransform: "uppercase",
                   padding: "0.75rem 0.75rem",
-                  color: "var(--muted-foreground)",
+                  color: "rgba(239,239,233,0.55)",
                   display: "flex",
                   alignItems: "center",
                   gap: "0.5rem",
@@ -445,7 +443,7 @@ function MobileNav() {
         <div
           style={{
             padding: "1rem",
-            borderTop: "1px solid var(--border)",
+            borderTop: "1px solid rgba(239,239,233,0.08)",
           }}
         >
           <SheetClose asChild>
@@ -459,7 +457,7 @@ function MobileNav() {
                 textTransform: "uppercase",
                 padding: "0.875rem",
                 background: "#FF3B00",
-                color: "var(--foreground)",
+                color: "#EFEFE9",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
