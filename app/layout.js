@@ -1,4 +1,5 @@
 import "./globals.css";
+import { ThemeProvider } from "../components/theme-provider";
 import { CartProvider } from "../context/CartContext";
 import CartDrawer from "../components/CartDrawer";
 import CheckoutModal from "../components/CheckoutModal";
@@ -28,16 +29,18 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <CartProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <CartDrawer />
-          <CheckoutModal />
-          <CartToast />
-        </CartProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <CartProvider>
+            <Navbar />
+            {children}
+            <Footer />
+            <CartDrawer />
+            <CheckoutModal />
+            <CartToast />
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
