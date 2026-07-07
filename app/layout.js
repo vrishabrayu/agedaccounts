@@ -1,11 +1,5 @@
 import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
-import { CartProvider } from "../context/CartContext";
-import CartDrawer from "../components/CartDrawer";
-import CheckoutModal from "../components/CheckoutModal";
-import CartToast from "../components/CartToast";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { ThemeProvider } from "../context/ThemeContext";
 
 export const metadata = {
   title: "Aged Accounts | Premium Social Media Marketplace",
@@ -13,34 +7,29 @@ export const metadata = {
     "Acquire top-tier social media assets. Premium accounts, instant delivery, secure checkout.",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "Aged Accounts",
   },
 };
 
-// Next.js 14+ requires viewport in a separate export
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
-  themeColor: "#0D0D0D",
+  themeColor: "#EFEFE9",
 };
+
+const themeScript = `(function(){try{var t=localStorage.getItem("agedaccounts-theme");if(t==="dark")document.documentElement.classList.add("dark");}catch(e){}})();`;
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          <CartProvider>
-            <Navbar />
-            {children}
-            <Footer />
-            <CartDrawer />
-            <CheckoutModal />
-            <CartToast />
-          </CartProvider>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

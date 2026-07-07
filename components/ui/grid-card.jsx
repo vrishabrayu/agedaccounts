@@ -17,7 +17,7 @@ export function GridCard({ className, children, ...props }) {
         "group bg-background relative isolate z-0 flex h-full flex-col justify-between overflow-hidden border px-5 py-4 transition-colors duration-75 cursor-pointer",
         className
       )}
-      style={{ borderRadius: 0, borderColor: "rgba(239,239,233,0.12)" }}
+      style={{ borderRadius: 0, borderColor: "var(--border-strong)" }}
       {...props}
     >
       <div className="absolute inset-0">
@@ -28,7 +28,7 @@ export function GridCard({ className, children, ...props }) {
             x={0}
             y={0}
             squares={getRandomPattern(5)}
-            className="fill-[rgba(239,239,233,0.04)] stroke-[rgba(239,239,233,0.06)] absolute inset-0 size-full translate-y-2 transition-transform duration-150 ease-out group-hover:translate-y-0"
+            className="fill-[var(--input)] stroke-[var(--grid-line)] absolute inset-0 size-full translate-y-2 transition-transform duration-150 ease-out group-hover:translate-y-0"
           />
         </div>
         <div

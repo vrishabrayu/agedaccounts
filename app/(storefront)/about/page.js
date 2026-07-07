@@ -13,7 +13,7 @@ export default function About() {
         minHeight: "100vh",
         paddingTop: "calc(var(--navbar-height, 72px) + 3rem)",
         paddingBottom: "5rem",
-        background: "#0D0D0D",
+        background: "var(--background)",
         paddingLeft: "clamp(1rem, 5vw, 4rem)",
         paddingRight: "clamp(1rem, 5vw, 4rem)",
       }}
@@ -31,7 +31,7 @@ export default function About() {
             fontWeight: 700,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(239,239,233,0.45)",
+            color: "var(--filter-inactive)",
             minHeight: "unset",
             transition: "color 0.2s",
           }}
@@ -45,13 +45,13 @@ export default function About() {
             style={{
               display: "inline-block",
               padding: "0.25rem 0.75rem",
-              border: "1px solid rgba(239,239,233,0.15)",
+              border: "1px solid var(--border-strong)",
               fontFamily: "var(--font-mono)",
               fontSize: "9px",
               fontWeight: 700,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(239,239,233,0.4)",
+              color: "var(--text-subtle)",
               marginBottom: "1rem",
             }}
           >
@@ -63,7 +63,7 @@ export default function About() {
               fontWeight: 700,
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               letterSpacing: "-0.02em",
-              color: "#EFEFE9",
+              color: "var(--foreground)",
               lineHeight: 1.1,
             }}
           >
@@ -75,7 +75,7 @@ export default function About() {
               fontSize: "10px",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: "rgba(239,239,233,0.35)",
+              color: "var(--muted-foreground)",
               marginTop: "0.5rem",
             }}
           >
@@ -92,13 +92,13 @@ export default function About() {
             fontFamily: "var(--font-sans, Inter, sans-serif)",
             fontSize: "1rem",
             lineHeight: 1.75,
-            color: "rgba(239,239,233,0.7)",
-            borderTop: "1px solid rgba(239,239,233,0.08)",
+            color: "var(--muted-foreground)",
+            borderTop: "1px solid var(--border)",
             paddingTop: "2.5rem",
           }}
         >
           <p>
-            Welcome to <strong style={{ color: "#EFEFE9", fontFamily: "var(--font-mono)" }}>Aged Accounts</strong>. We
+            Welcome to <strong style={{ color: "var(--foreground)", fontFamily: "var(--font-mono)" }}>Aged Accounts</strong>. We
             specialise in providing high-quality, premium social media accounts tailored to help your brand grow
             instantly.
           </p>
@@ -117,22 +117,22 @@ export default function About() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
               gap: "1px",
-              background: "rgba(239,239,233,0.06)",
-              border: "1px solid rgba(239,239,233,0.06)",
+              background: "var(--grid-line)",
+              border: "1px solid var(--grid-line)",
               marginTop: "2rem",
             }}
           >
             {[
               { label: "Hand Farmed", desc: "Every account is built by real activity, not bots." },
               { label: "Instant Delivery", desc: "Access handed over minutes after payment." },
-              { label: "Secure Checkout", desc: "Stripe + crypto options, fully encrypted." },
+              { label: "Secure Checkout", desc: "NOWPayments crypto checkout, fully encrypted." },
               { label: "Verified Quality", desc: "All accounts pass our 14-point audit." },
             ].map(({ label, desc }) => (
               <div
                 key={label}
                 style={{
                   padding: "1.5rem",
-                  background: "#141414",
+                  background: "var(--card)",
                 }}
               >
                 <div
@@ -148,7 +148,7 @@ export default function About() {
                 >
                   {label}
                 </div>
-                <p style={{ fontSize: "0.875rem", color: "rgba(239,239,233,0.55)", lineHeight: 1.6 }}>{desc}</p>
+                <p style={{ fontSize: "0.875rem", color: "var(--muted-foreground)", lineHeight: 1.6 }}>{desc}</p>
               </div>
             ))}
           </div>
