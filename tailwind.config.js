@@ -37,6 +37,7 @@ module.exports = {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
+        "surface-elevated": "var(--surface-elevated)",
         popover: {
           DEFAULT: "var(--popover)",
           foreground: "var(--popover-foreground)",
