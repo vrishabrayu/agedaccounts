@@ -11,7 +11,7 @@ function NavigationMenu({ className, children, viewport = true, ...props }) {
       data-slot="navigation-menu"
       data-viewport={viewport}
       className={cn(
-        "group/navigation-menu relative z-10 flex max-w-max flex-1 items-center justify-center",
+        "group/navigation-menu flex max-w-max flex-1 items-center justify-center",
         className
       )}
       {...props}
@@ -50,7 +50,7 @@ function NavigationMenuTrigger({ className, children, ...props }) {
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       className={cn(
-        "group hover:text-[var(--foreground)] focus:text-[var(--foreground)] data-[state=open]:text-[var(--foreground)] inline-flex w-max items-center justify-center px-4 py-2 text-[10px] font-mono font-bold tracking-[0.15em] uppercase transition-colors outline-none text-[var(--muted-foreground)] disabled:pointer-events-none disabled:opacity-50",
+        "group hover:text-[#EFEFE9] focus:text-[#EFEFE9] data-[state=open]:text-[#EFEFE9] inline-flex w-max items-center justify-center px-4 py-2 text-[10px] font-mono font-bold tracking-[0.15em] uppercase transition-colors outline-none text-[rgba(239,239,233,0.55)] disabled:pointer-events-none disabled:opacity-50",
         className
       )}
       {...props}
@@ -79,12 +79,12 @@ function NavigationMenuContent({ className, ...props }) {
 
 function NavigationMenuViewport({ className, ...props }) {
   return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 isolate z-50 flex justify-center">
+    <div className="absolute top-full left-0 isolate z-50 flex justify-center">
       <NavigationMenuPrimitive.Viewport
         data-slot="navigation-menu-viewport"
         className={cn(
           "origin-top-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden md:w-[var(--radix-navigation-menu-viewport-width)]",
-          "bg-[var(--popover)] border border-[var(--border)] shadow-2xl backdrop-blur-xl",
+          "bg-[#0F0F0F] border border-[rgba(239,239,233,0.10)] shadow-2xl backdrop-blur-xl",
           className
         )}
         {...props}
@@ -98,7 +98,7 @@ function NavigationMenuLink({ className, ...props }) {
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "hover:text-[var(--foreground)] focus:text-[var(--foreground)] flex flex-col justify-center gap-1 px-4 py-2 text-[10px] font-mono font-bold tracking-[0.15em] uppercase text-[var(--muted-foreground)] transition-colors outline-none",
+        "hover:text-[#EFEFE9] focus:text-[#EFEFE9] flex flex-col justify-center gap-1 px-4 py-2 text-[10px] font-mono font-bold tracking-[0.15em] uppercase text-[rgba(239,239,233,0.55)] transition-colors outline-none",
         className
       )}
       {...props}
@@ -116,7 +116,7 @@ function NavigationMenuIndicator({ className, ...props }) {
       )}
       {...props}
     >
-      <div className="bg-[var(--border-strong)] relative top-[60%] h-2 w-2 rotate-45 shadow-md" />
+      <div className="bg-[rgba(239,239,233,0.2)] relative top-[60%] h-2 w-2 rotate-45 shadow-md" />
     </NavigationMenuPrimitive.Indicator>
   );
 }
@@ -130,20 +130,20 @@ function NavGridCard({ link, ...props }) {
         {link.icon && (
           <link.icon
             className="relative size-5"
-            style={{ color: "var(--muted-foreground)" }}
+            style={{ color: "rgba(239,239,233,0.7)" }}
           />
         )}
         <div className="relative mt-3">
           <span
             className="text-sm font-mono font-bold"
-            style={{ color: "var(--foreground)" }}
+            style={{ color: "#EFEFE9" }}
           >
             {link.title}
           </span>
           {link.description && (
             <p
               className="mt-1 text-xs font-sans leading-snug"
-              style={{ color: "var(--filter-inactive)" }}
+              style={{ color: "rgba(239,239,233,0.45)" }}
             >
               {link.description}
             </p>
@@ -159,7 +159,7 @@ function NavSmallItem({ item, className, href, ...props }) {
     <NavigationMenuLink
       href={href}
       className={cn(
-        "group relative h-max flex-row items-center gap-x-3 px-3 py-2 rounded-none hover:bg-[var(--input)]",
+        "group relative h-max flex-row items-center gap-x-3 px-3 py-2 rounded-none hover:bg-[rgba(239,239,233,0.04)]",
         className
       )}
       {...props}
@@ -167,12 +167,12 @@ function NavSmallItem({ item, className, href, ...props }) {
       {item.icon && (
         <item.icon
           className="size-4 flex-shrink-0"
-          style={{ color: "var(--muted-foreground)" }}
+          style={{ color: "rgba(239,239,233,0.5)" }}
         />
       )}
       <p
         className="text-[11px] font-mono font-bold tracking-[0.12em] uppercase"
-        style={{ color: "var(--muted-foreground)" }}
+        style={{ color: "rgba(239,239,233,0.7)" }}
       >
         {item.title}
       </p>
@@ -191,7 +191,7 @@ function NavLargeItem({ link, className, href, ...props }) {
     <NavigationMenuLink
       href={href}
       className={cn(
-        "group relative flex flex-col justify-center border border-[var(--border)] p-0 hover:border-[var(--border-strong)] hover:bg-[var(--stat-bg)]",
+        "group relative flex flex-col justify-center border border-[rgba(239,239,233,0.08)] p-0 hover:border-[rgba(239,239,233,0.18)] hover:bg-[rgba(239,239,233,0.03)]",
         className
       )}
       {...props}
@@ -200,14 +200,14 @@ function NavLargeItem({ link, className, href, ...props }) {
         <div className="space-y-0.5">
           <span
             className="text-[11px] font-mono font-bold tracking-[0.12em] uppercase leading-none"
-            style={{ color: "var(--foreground)" }}
+            style={{ color: "#EFEFE9" }}
           >
             {link.title}
           </span>
           {link.description && (
             <p
               className="line-clamp-1 text-[10px] font-sans leading-snug"
-              style={{ color: "var(--text-subtle)" }}
+              style={{ color: "rgba(239,239,233,0.4)" }}
             >
               {link.description}
             </p>
@@ -216,7 +216,7 @@ function NavLargeItem({ link, className, href, ...props }) {
         {link.icon && (
           <link.icon
             className="size-4 flex-shrink-0"
-            style={{ color: "var(--text-faint)" }}
+            style={{ color: "rgba(239,239,233,0.3)" }}
           />
         )}
       </div>
@@ -229,30 +229,30 @@ function NavItemMobile({ item, className, href, ...props }) {
     <a
       href={href}
       className={cn(
-        "group relative flex gap-x-3 rounded-none p-3 text-sm transition-colors hover:bg-[var(--input)]",
+        "group relative flex gap-x-3 rounded-none p-3 text-sm transition-colors hover:bg-[rgba(239,239,233,0.04)]",
         className
       )}
       {...props}
     >
-      <div className="flex size-10 items-center justify-center border border-[var(--border)] bg-[var(--input)] flex-shrink-0">
+      <div className="flex size-10 items-center justify-center border border-[rgba(239,239,233,0.1)] bg-[rgba(239,239,233,0.04)] flex-shrink-0">
         {item.icon && (
           <item.icon
             className="size-4"
-            style={{ color: "var(--muted-foreground)" }}
+            style={{ color: "rgba(239,239,233,0.6)" }}
           />
         )}
       </div>
       <div className="flex flex-col justify-center">
         <p
           className="text-[11px] font-mono font-bold tracking-[0.12em] uppercase"
-          style={{ color: "var(--foreground)" }}
+          style={{ color: "#EFEFE9" }}
         >
           {item.title}
         </p>
         {item.description && (
           <span
             className="line-clamp-1 text-[10px] font-sans leading-snug mt-0.5"
-            style={{ color: "var(--text-subtle)" }}
+            style={{ color: "rgba(239,239,233,0.4)" }}
           >
             {item.description}
           </span>

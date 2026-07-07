@@ -36,7 +36,7 @@ export default function CartDrawer() {
             style={{
               position: "fixed",
               inset: 0,
-              background: "var(--overlay-backdrop)",
+              background: "rgba(0,0,0,0.7)",
               backdropFilter: "blur(4px)",
               zIndex: 950,
             }}
@@ -59,8 +59,8 @@ export default function CartDrawer() {
               right: 0,
               bottom: 0,
               width: "min(440px, 100vw)",
-              background: "var(--surface-elevated)",
-              borderLeft: "1px solid var(--border)",
+              background: "#111111",
+              borderLeft: "1px solid rgba(239,239,233,0.10)",
               zIndex: 960,
               display: "flex",
               flexDirection: "column",
@@ -73,17 +73,17 @@ export default function CartDrawer() {
               alignItems: "center",
               justifyContent: "space-between",
               padding: "1.25rem 1.5rem",
-              borderBottom: "1px solid var(--border)",
+              borderBottom: "1px solid rgba(239,239,233,0.08)",
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                <ShoppingBag size={16} color="var(--foreground)" opacity={0.7} />
+                <ShoppingBag size={16} color="#EFEFE9" opacity={0.7} />
                 <span style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "var(--foreground)",
+                  color: "#EFEFE9",
                 }}>
                   Cart ({cartItemCount})
                 </span>
@@ -92,8 +92,8 @@ export default function CartDrawer() {
                 onClick={() => setIsDrawerOpen(false)}
                 aria-label="Close cart"
                 id="close-cart-btn"
-                style={{ color: "var(--muted-foreground)", transition: "color 0.2s" }}
-                className="hover:text-[var(--foreground)]"
+                style={{ color: "rgba(239,239,233,0.5)", transition: "color 0.2s" }}
+                className="hover:text-[#EFEFE9]"
               >
                 <X size={18} />
               </button>
@@ -113,7 +113,7 @@ export default function CartDrawer() {
                       justifyContent: "center",
                       gap: "1rem",
                       height: "100%",
-                      color: "var(--text-faint)",
+                      color: "rgba(239,239,233,0.25)",
                     }}
                   >
                     <ShoppingBag size={40} strokeWidth={1} />
@@ -134,8 +134,8 @@ export default function CartDrawer() {
                         alignItems: "center",
                         gap: "1rem",
                         padding: "1rem",
-                        background: "var(--card)",
-                        border: "1px solid var(--border)",
+                        background: "#1A1A1A",
+                        border: "1px solid rgba(239,239,233,0.07)",
                       }}
                     >
                       <div style={{ flex: 1, minWidth: 0 }}>
@@ -144,7 +144,7 @@ export default function CartDrawer() {
                           fontSize: "9px",
                           letterSpacing: "0.18em",
                           textTransform: "uppercase",
-                          color: "var(--muted-foreground)",
+                          color: "rgba(239,239,233,0.35)",
                           marginBottom: "2px",
                         }}>
                           {item.platform}
@@ -153,7 +153,7 @@ export default function CartDrawer() {
                           fontFamily: "var(--font-mono)",
                           fontSize: "13px",
                           fontWeight: 700,
-                          color: "var(--foreground)",
+                          color: "#EFEFE9",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
@@ -166,28 +166,28 @@ export default function CartDrawer() {
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           style={{
-                            width: 24, height: 24, border: "1px solid var(--border-strong)",
-                            background: "transparent", color: "var(--foreground)", display: "flex",
+                            width: 24, height: 24, border: "1px solid rgba(239,239,233,0.15)",
+                            background: "transparent", color: "#EFEFE9", display: "flex",
                             alignItems: "center", justifyContent: "center", cursor: "pointer",
                           }}
-                          className="hover:border-[var(--text-subtle)] transition-colors"
+                          className="hover:border-[rgba(239,239,233,0.4)] transition-colors"
                         >
                           <Minus size={10} />
                         </button>
                         <span style={{
                           fontFamily: "var(--font-mono)", fontWeight: 700,
-                          fontSize: "12px", color: "var(--foreground)", minWidth: "16px", textAlign: "center",
+                          fontSize: "12px", color: "#EFEFE9", minWidth: "16px", textAlign: "center",
                         }}>
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           style={{
-                            width: 24, height: 24, border: "1px solid var(--border-strong)",
-                            background: "transparent", color: "var(--foreground)", display: "flex",
+                            width: 24, height: 24, border: "1px solid rgba(239,239,233,0.15)",
+                            background: "transparent", color: "#EFEFE9", display: "flex",
                             alignItems: "center", justifyContent: "center", cursor: "pointer",
                           }}
-                          className="hover:border-[var(--text-subtle)] transition-colors"
+                          className="hover:border-[rgba(239,239,233,0.4)] transition-colors"
                         >
                           <Plus size={10} />
                         </button>
@@ -195,7 +195,7 @@ export default function CartDrawer() {
                       {/* Price */}
                       <div style={{
                         fontFamily: "var(--font-mono)", fontWeight: 700,
-                        fontSize: "14px", color: "var(--foreground)", minWidth: "48px", textAlign: "right",
+                        fontSize: "14px", color: "#EFEFE9", minWidth: "48px", textAlign: "right",
                       }}>
                         ${item.price * item.quantity}
                       </div>
@@ -203,7 +203,7 @@ export default function CartDrawer() {
                       <button
                         onClick={() => removeFromCart(item.id)}
                         aria-label={`Remove ${item.niche}`}
-                        style={{ color: "var(--text-faint)", transition: "color 0.2s" }}
+                        style={{ color: "rgba(239,239,233,0.3)", transition: "color 0.2s" }}
                         className="hover:text-[#FF3B00]"
                       >
                         <Trash2 size={13} />
@@ -218,8 +218,8 @@ export default function CartDrawer() {
             <div style={{
               padding: "1.25rem 1rem",
               paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))",
-              borderTop: "1px solid var(--border)",
-              background: "var(--background)",
+              borderTop: "1px solid rgba(239,239,233,0.08)",
+              background: "#0D0D0D",
               display: "flex",
               flexDirection: "column",
               gap: "0.875rem",
@@ -232,7 +232,7 @@ export default function CartDrawer() {
                   style={{
                     fontFamily: "var(--font-mono)", fontSize: "9px", fontWeight: 700,
                     letterSpacing: "0.18em", textTransform: "uppercase",
-                    color: "var(--text-faint)", background: "transparent",
+                    color: "rgba(239,239,233,0.3)", background: "transparent",
                     border: "none", cursor: "pointer", textAlign: "left",
                     transition: "color 0.2s",
                   }}
@@ -244,13 +244,13 @@ export default function CartDrawer() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <span style={{
                   fontFamily: "var(--font-mono)", fontSize: "10px", fontWeight: 700,
-                  letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-subtle)",
+                  letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(239,239,233,0.4)",
                 }}>
                   Total
                 </span>
                 <span style={{
                   fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: "24px",
-                  letterSpacing: "-0.02em", color: "var(--foreground)",
+                  letterSpacing: "-0.02em", color: "#EFEFE9",
                 }}>
                   ${cartTotal}
                 </span>
@@ -264,8 +264,8 @@ export default function CartDrawer() {
                   padding: "1rem", width: "100%",
                   fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700,
                   letterSpacing: "0.15em", textTransform: "uppercase",
-                  background: cart.length === 0 ? "var(--border)" : "#FF3B00",
-                  color: cart.length === 0 ? "var(--text-faint)" : "var(--foreground)",
+                  background: cart.length === 0 ? "rgba(239,239,233,0.1)" : "#FF3B00",
+                  color: cart.length === 0 ? "rgba(239,239,233,0.3)" : "#EFEFE9",
                   border: "none", cursor: cart.length === 0 ? "not-allowed" : "pointer",
                   transition: "background 0.2s, opacity 0.2s",
                 }}
