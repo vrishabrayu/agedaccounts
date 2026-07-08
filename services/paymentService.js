@@ -99,7 +99,7 @@ export async function processSuccessfulPayment({
     await order.save();
 
     // Trigger admin alert email
-    const adminEmail = process.env.ADMIN_EMAIL || "admin@agedaccount.store";
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
     try {
       await sendAdminLowStockNotification(adminEmail, {
         productName: product.name,
@@ -117,8 +117,8 @@ export async function processSuccessfulPayment({
   }
 
   // 5. Queue Email delivery
-  const loginUrl = product.loginUrl || "https://agedaccount.store/login";
-  const supportEmail = process.env.SUPPORT_EMAIL || "support@agedaccount.store";
+  const loginUrl = product.loginUrl || (process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "")}/login` : "https://example.com/login");
+  const supportEmail = process.env.SUPPORT_EMAIL || "support@example.com";
   const emailHtml = getCredentialsEmailHtml({
     customerName: customerEmail.split("@")[0],
     productName: product.name,
@@ -155,7 +155,7 @@ export async function processSuccessfulPayment({
 
   if (availableCount <= product.lowStockThreshold) {
     console.warn(`[PaymentService] LOW STOCK WARNING: Product ${product.name} has only ${availableCount} accounts left.`);
-    const adminEmail = process.env.ADMIN_EMAIL || "admin@agedaccount.store";
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
     try {
       await sendAdminLowStockNotification(adminEmail, {
         productName: product.name,

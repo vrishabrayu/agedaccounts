@@ -34,8 +34,8 @@ const transporter = createTransport();
  * Returns a beautiful, modern, mobile-friendly responsive SaaS-style HTML template.
  */
 export function getCredentialsEmailHtml({ customerName, productName, username, password, loginUrl, supportEmail }) {
-  const support = supportEmail || "support@agedaccount.store";
-  const displayLoginUrl = loginUrl || "https://agedaccount.store/login";
+  const support = supportEmail || process.env.SUPPORT_EMAIL || "support@example.com";
+  const displayLoginUrl = loginUrl || (process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "")}/login` : "https://example.com/login");
 
   return `
     <!DOCTYPE html>

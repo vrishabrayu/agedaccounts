@@ -52,7 +52,7 @@ async function runTests() {
   const testOrderId2 = new mongoose.Types.ObjectId().toString();
   const testPaymentId = `test_pay_${Date.now()}`;
   const testEmail = "testcustomer@example.com";
-  const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET || "1w2xGyN3e1/92P45y0ePqWR85qgYFY94";
+  const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET || "your-nowpayments-ipn-secret";
 
   let product = null;
 
