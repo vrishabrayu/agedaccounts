@@ -119,7 +119,7 @@ export function AnimatedHero({ onShopClick }) {
               <div>
                 <h4 className="text-[#EFEFE9] font-medium mb-2 font-mono text-[10px] tracking-widest uppercase">Instagram Account Information</h4>
                 <ul className="list-disc pl-5 space-y-1.5 opacity-90">
-                  <li>Accounts are automatically registered, you'll get ready to use accounts.</li>
+                  <li>Accounts are automatically registered, you&apos;ll get ready to use accounts.</li>
                   <li>All accounts were originally created in 2012/13.</li>
                   <li>Profiles are fully blank, with no added profile pictures and followers/followings.</li>
                   <li>Two-Factor Authentication (2FA) is enabled on every account.</li>

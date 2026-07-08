@@ -433,7 +433,7 @@ export default function ProductDetailClient({ product }) {
                 gap: "0.75rem",
                 lineHeight: 1.5,
               }}>
-                <li>Accounts are automatically registered, you'll get ready to use accounts.</li>
+                <li>Accounts are automatically registered, you&apos;ll get ready to use accounts.</li>
                 <li>All accounts were originally created in 2012/13.</li>
                 <li>Profiles are fully blank, with no added profile pictures and followers/followings.</li>
                 <li>Two-Factor Authentication (2FA) is enabled on every account.</li>
