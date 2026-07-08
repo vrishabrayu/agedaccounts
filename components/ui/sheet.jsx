@@ -47,18 +47,18 @@ function SheetContent({
         data-slot="sheet-content"
         className={cn(
           "fixed z-50 flex flex-col gap-0 shadow-2xl transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out",
-          "bg-[#0A0A0A] border-l border-[var(--border)]",
+          "bg-[#0A0A0A] border-l border-[rgba(239,239,233,0.08)]",
           side === "right" &&
             "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-full sm:max-w-sm",
           side === "left" &&
-            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-full sm:max-w-sm border-l-0 border-r border-[var(--border)]",
+            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-full sm:max-w-sm border-l-0 border-r border-[rgba(239,239,233,0.08)]",
           className
         )}
         {...props}
       >
         {children}
         {showClose && (
-          <SheetPrimitive.Close className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 border border-[var(--border-strong)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--text-faint)] transition-colors outline-none">
+          <SheetPrimitive.Close className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 border border-[rgba(239,239,233,0.12)] text-[rgba(239,239,233,0.5)] hover:text-[#EFEFE9] hover:border-[rgba(239,239,233,0.3)] transition-colors outline-none">
             <XIcon className="size-3.5" />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
@@ -73,7 +73,7 @@ function SheetHeader({ className, ...props }) {
     <div
       data-slot="sheet-header"
       className={cn(
-        "flex flex-col gap-1 p-5 border-b border-[var(--border)]",
+        "flex flex-col gap-1 p-5 border-b border-[rgba(239,239,233,0.08)]",
         className
       )}
       {...props}
@@ -86,7 +86,7 @@ function SheetFooter({ className, ...props }) {
     <div
       data-slot="sheet-footer"
       className={cn(
-        "mt-auto flex flex-col gap-2 p-5 border-t border-[var(--border)]",
+        "mt-auto flex flex-col gap-2 p-5 border-t border-[rgba(239,239,233,0.08)]",
         className
       )}
       {...props}
@@ -98,7 +98,7 @@ function SheetTitle({ className, ...props }) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("font-mono font-bold text-[var(--foreground)] tracking-[0.1em] uppercase text-sm", className)}
+      className={cn("font-mono font-bold text-[#EFEFE9] tracking-[0.1em] uppercase text-sm", className)}
       {...props}
     />
   );
@@ -108,7 +108,7 @@ function SheetDescription({ className, ...props }) {
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("text-[var(--filter-inactive)] text-xs font-sans", className)}
+      className={cn("text-[rgba(239,239,233,0.45)] text-xs font-sans", className)}
       {...props}
     />
   );

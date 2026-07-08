@@ -1,10 +1,11 @@
 "use client";
 
-import { PLATFORMS } from "../data/platforms";
+const platforms = [
+  "All", "Instagram", "TikTok", "YouTube", "Twitter",
+  "Reddit", "Snapchat", "Discord", "Facebook", "Quora"
+];
 
-const defaultPlatforms = ["All", ...PLATFORMS];
-
-export default function FilterMenu({ platforms = defaultPlatforms, selected, onSelect }) {
+export default function FilterMenu({ selected, onSelect }) {
   return (
     <div
       style={{
@@ -32,14 +33,15 @@ export default function FilterMenu({ platforms = defaultPlatforms, selected, onS
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               border: isActive
-                ? "1px solid var(--accent-color)"
-                : "1px solid var(--border-strong)",
-              background: isActive ? "var(--accent-color)" : "transparent",
-              color: isActive ? "var(--accent-foreground-color)" : "var(--filter-inactive)",
+                ? "1px solid #FF3B00"
+                : "1px solid rgba(239,239,233,0.12)",
+              background: isActive ? "#FF3B00" : "transparent",
+              color: isActive ? "#EFEFE9" : "rgba(239,239,233,0.45)",
               cursor: "pointer",
               transition: "all 0.2s ease",
               whiteSpace: "nowrap",
             }}
+            className="hover:border-[rgba(239,239,233,0.35)] hover:text-[#EFEFE9]"
           >
             {platform}
           </button>

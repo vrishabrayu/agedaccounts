@@ -3,29 +3,40 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Plus, Check } from "lucide-react";
 import { useCart } from "../context/CartContext";
-import { useTheme } from "../context/ThemeContext";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const platformSlugs = {
-  Instagram: "instagram",
-  Twitter: "x",
-  YouTube: "youtube",
-  TikTok: "tiktok",
-  Reddit: "reddit",
-  Discord: "discord",
-  Snapchat: "snapchat",
-  Quora: "quora",
-  Facebook: "facebook",
+const platformIcons = {
+  Instagram: "https://cdn.simpleicons.org/instagram/EFEFE9",
+  Twitter: "https://cdn.simpleicons.org/x/EFEFE9",
+  YouTube: "https://cdn.simpleicons.org/youtube/EFEFE9",
+  TikTok: "https://cdn.simpleicons.org/tiktok/EFEFE9",
+  Reddit: "https://cdn.simpleicons.org/reddit/EFEFE9",
+  Discord: "https://cdn.simpleicons.org/discord/EFEFE9",
+  Snapchat: "https://cdn.simpleicons.org/snapchat/EFEFE9",
+  Quora: "https://cdn.simpleicons.org/quora/EFEFE9",
+  Facebook: "https://cdn.simpleicons.org/facebook/EFEFE9",
+};
+
+const platformColors = {
+  Instagram: "#E1306C",
+  Twitter: "#1DA1F2",
+  YouTube: "#FF0000",
+  TikTok: "#69C9D0",
+  Reddit: "#FF4500",
+  Discord: "#5865F2",
+  Snapchat: "#FFFC00",
+  Quora: "#B92B27",
+  Facebook: "#1877F2",
 };
 
 export default function AccountCard({ account, isSelected, onToggleSelect }) {
-  const { theme } = useTheme();
-  const iconColor = theme === "dark" ? "EFEFE9" : "1a1a1a";
-  const slug = platformSlugs[account.platform];
-  const iconUrl = slug ? `https://cdn.simpleicons.org/${slug}/${iconColor}` : null;
+  const router = useRouter();
+  const iconUrl = platformIcons[account.platform];
+  const accentColor = platformColors[account.platform] ?? "#FF3B00";
   const { addToCart } = useCart();
   const cardRef = useRef(null);
   const btnRef = useRef(null);
@@ -47,6 +58,7 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
         },
       }
     );
+    // Capture ref value in local var to avoid stale ref in cleanup
     const card = cardRef.current;
     return () => {
       ScrollTrigger.getAll().forEach((st) => {
@@ -55,7 +67,8 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
     };
   }, []);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
     addToCart(account);
     if (btnRef.current) {
       gsap.fromTo(btnRef.current, { scale: 1 }, {
@@ -64,24 +77,34 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
     }
   };
 
+  const handleCardClick = () => {
+    router.push(`/products/${account.id}`);
+  };
+
   return (
     <div
       ref={cardRef}
       id={`account-card-${account.id}`}
+      onClick={handleCardClick}
       style={{
-        background: isSelected ? "var(--selected-bg)" : "var(--card)",
-        border: isSelected ? "1px solid rgba(255,59,0,0.5)" : "1px solid var(--border)",
+        background: isSelected ? "rgba(255,59,0,0.06)" : "#141414",
+        border: isSelected ? "1px solid rgba(255,59,0,0.5)" : "1px solid rgba(239,239,233,0.08)",
         padding: "1.5rem",
         position: "relative",
-        cursor: "default",
+        cursor: "pointer",
         transition: "border-color 0.2s ease, background 0.2s ease",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
       }}
+      className="group hover:border-[rgba(239,239,233,0.2)]"
     >
+      {/* Select checkbox — large touch target for mobile */}
       <button
-        onClick={() => onToggleSelect && onToggleSelect(account.id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleSelect && onToggleSelect(account.id);
+        }}
         aria-label={isSelected ? `Deselect ${account.niche}` : `Select ${account.niche}`}
         aria-pressed={isSelected}
         style={{
@@ -101,18 +124,19 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
         <span style={{
           width: "20px",
           height: "20px",
-          border: isSelected ? "1px solid var(--accent-color)" : "1px solid var(--checkbox-border)",
-          background: isSelected ? "var(--accent-color)" : "transparent",
+          border: isSelected ? "1px solid #FF3B00" : "1px solid rgba(239,239,233,0.2)",
+          background: isSelected ? "#FF3B00" : "transparent",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           transition: "all 0.2s",
           flexShrink: 0,
         }}>
-          {isSelected && <Check size={11} strokeWidth={3} color="var(--icon-on-accent)" />}
+          {isSelected && <Check size={11} strokeWidth={3} color="#EFEFE9" />}
         </span>
       </button>
 
+      {/* Platform badge */}
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
         {iconUrl && (
           <Image
@@ -130,7 +154,7 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
           fontWeight: 700,
           letterSpacing: "0.2em",
           textTransform: "uppercase",
-          color: "var(--muted-foreground)",
+          color: "rgba(239,239,233,0.45)",
         }}>
           {account.platform}
         </span>
@@ -140,18 +164,19 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
           fontFamily: "var(--font-mono)",
           fontWeight: 700,
           fontSize: "18px",
-          color: "var(--foreground)",
+          color: "#EFEFE9",
           letterSpacing: "-0.02em",
         }}>
           ${account.price}
         </span>
       </div>
 
+      {/* Niche title */}
       <h3 style={{
         fontFamily: "var(--font-mono)",
         fontWeight: 700,
         fontSize: "clamp(1rem, 2vw, 1.25rem)",
-        color: "var(--foreground)",
+        color: "#EFEFE9",
         letterSpacing: "-0.01em",
         lineHeight: 1.2,
         marginTop: "0.25rem",
@@ -159,17 +184,18 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
         {account.niche}
       </h3>
 
+      {/* Stats */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         gap: "0.75rem",
         padding: "0.875rem",
-        background: "var(--stat-bg)",
-        border: "1px solid var(--border)",
+        background: "rgba(239,239,233,0.03)",
+        border: "1px solid rgba(239,239,233,0.06)",
       }}>
         {[
-          { label: "Followers", value: account.followers || "—" },
-          { label: "Engagement", value: account.engagement || "N/A" },
+          { label: "Followers", value: account.followers },
+          { label: "Engagement", value: account.engagement },
         ].map(({ label, value }) => (
           <div key={label}>
             <div style={{
@@ -177,7 +203,7 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
               fontSize: "8px",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "var(--text-faint)",
+              color: "rgba(239,239,233,0.3)",
               marginBottom: "4px",
             }}>
               {label}
@@ -186,7 +212,7 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
               fontFamily: "var(--font-mono)",
               fontSize: "13px",
               fontWeight: 700,
-              color: "var(--foreground)",
+              color: "#EFEFE9",
             }}>
               {value}
             </div>
@@ -194,6 +220,7 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
         ))}
       </div>
 
+      {/* Add to cart */}
       <button
         ref={btnRef}
         onClick={handleAddToCart}
@@ -209,15 +236,15 @@ export default function AccountCard({ account, isSelected, onToggleSelect }) {
           fontWeight: 700,
           letterSpacing: "0.15em",
           textTransform: "uppercase",
-          color: "var(--btn-inverted-fg)",
-          background: "var(--btn-inverted-bg)",
+          color: "#0D0D0D",
+          background: "#EFEFE9",
           border: "none",
           cursor: "pointer",
           transition: "background 0.2s, color 0.2s",
           width: "100%",
           marginTop: "auto",
         }}
-        className="hover:bg-accent hover:text-accent-foreground"
+        className="hover:bg-[#FF3B00] hover:text-[#EFEFE9]"
       >
         <Plus size={13} strokeWidth={2.5} />
         Add to Cart

@@ -17,27 +17,15 @@ export async function DELETE(request, { params }) {
 
     await dbConnect();
 
-    // Find the account
-    const account = await Account.findById(id);
-    if (!account) {
+    // Find and delete the account permanently from the database
+    const deletedAccount = await Account.findByIdAndDelete(id);
+    if (!deletedAccount) {
       return NextResponse.json({ error: "Account not found." }, { status: 404 });
     }
 
-    // Block deleting sold accounts
-    if (account.status === "SOLD") {
-      return NextResponse.json(
-        { error: "Cannot delete a sold account. Access details must be retained for user delivery history." },
-        { status: 400 }
-      );
-    }
+    console.log(`[AdminDelete] Hard deleted account: ID=${id}, Username=${deletedAccount.username}`);
 
-    // Soft delete by setting status to DISABLED
-    account.status = "DISABLED";
-    await account.save();
-
-    console.log(`[AdminDelete] Soft deleted account: ID=${id}, Username=${account.username}`);
-
-    return NextResponse.json({ success: true, status: "DISABLED" });
+    return NextResponse.json({ success: true, message: "Account deleted successfully from database." });
   } catch (error) {
     console.error("[api/admin/accounts/delete] Error during deletion:", error);
     return NextResponse.json({ error: "Internal deletion error." }, { status: 500 });

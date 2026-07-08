@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useRef } from "react";
 import Hero from "./Hero";
 import FilterMenu from "./FilterMenu";
 import AccountCard from "./AccountCard";
@@ -12,6 +12,7 @@ export default function Marketplace({ initialProducts = [] }) {
   const [selectedPlatform, setSelectedPlatform] = useState("All");
   const [selectedIds, setSelectedIds] = useState(new Set());
   const { addMultipleToCart } = useCart();
+  const headerRef = useRef(null);
 
   const platforms = useMemo(
     () => ["All", ...new Set(initialProducts.map((product) => product.platform))],
@@ -40,67 +41,72 @@ export default function Marketplace({ initialProducts = [] }) {
     setSelectedIds(new Set());
   };
 
+  const handlePlatformClick = useCallback((platform) => {
+    setSelectedPlatform(platform);
+    setTimeout(() => {
+      const el = document.getElementById("marketplace");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }, []);
+
   const addableCount = selectedIds.size;
 
   return (
-    <main style={{ minHeight: "100vh", background: "var(--background)" }}>
+    <main style={{ minHeight: "100vh", background: "#0D0D0D" }}>
       <Hero />
 
+      {/* ── Marketplace ── */}
       <section
         id="marketplace"
         style={{
           padding: "4rem clamp(1rem, 4vw, 3rem) 5rem",
-          background: "var(--background)",
+          background: "#0D0D0D",
           minHeight: "100vh",
           scrollMarginTop: "var(--navbar-height, 72px)",
         }}
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          {/* Section header */}
           <motion.div
+            ref={headerRef}
             initial={{ opacity: 0, x: -32 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
             style={{ marginBottom: "2.5rem" }}
           >
-            <div
-              style={{
-                display: "inline-block",
-                padding: "0.25rem 0.75rem",
-                border: "1px solid var(--border-strong)",
-                fontFamily: "var(--font-mono)",
-                fontSize: "9px",
-                fontWeight: 700,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--text-subtle)",
-                marginBottom: "1rem",
-              }}
-            >
+            <div style={{
+              display: "inline-block",
+              padding: "0.25rem 0.75rem",
+              border: "1px solid rgba(239,239,233,0.15)",
+              fontFamily: "var(--font-mono)",
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "rgba(239,239,233,0.4)",
+              marginBottom: "1rem",
+            }}>
               Marketplace
             </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontWeight: 700,
-                fontSize: "clamp(1.75rem, 4vw, 3rem)",
-                letterSpacing: "-0.02em",
-                color: "var(--foreground)",
-                lineHeight: 1.1,
-              }}
-            >
+            <h2 style={{
+              fontFamily: "var(--font-mono)",
+              fontWeight: 700,
+              fontSize: "clamp(1.75rem, 4vw, 3rem)",
+              letterSpacing: "-0.02em",
+              color: "#EFEFE9",
+              lineHeight: 1.1,
+            }}>
               SOCIAL ACCOUNTS
             </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--text-subtle)",
-                marginTop: "0.5rem",
-              }}
-            >
+            <p style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "rgba(239,239,233,0.35)",
+              marginTop: "0.5rem",
+            }}>
               Filter by platform and find the perfect audience for your brand.
             </p>
           </motion.div>
@@ -111,18 +117,17 @@ export default function Marketplace({ initialProducts = [] }) {
             onSelect={setSelectedPlatform}
           />
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: "1px",
-              marginTop: "2rem",
-              background: "var(--grid-line)",
-              border: "1px solid var(--grid-line)",
-            }}
-          >
+          {/* Product grid */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: "1px",
+            marginTop: "2rem",
+            background: "rgba(239,239,233,0.06)",
+            border: "1px solid rgba(239,239,233,0.06)",
+          }}>
             {filteredProducts.map((product) => (
-              <div key={product.id} style={{ background: "var(--background)" }}>
+              <div key={product.id} style={{ background: "#0D0D0D" }}>
                 <AccountCard
                   account={product}
                   isSelected={selectedIds.has(product.id)}
@@ -133,19 +138,17 @@ export default function Marketplace({ initialProducts = [] }) {
           </div>
 
           {filteredProducts.length === 0 && (
-            <div
-              style={{
-                padding: "4rem 2rem",
-                textAlign: "center",
-                border: "1px solid var(--border)",
-                color: "var(--text-faint)",
-                marginTop: "2rem",
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-              }}
-            >
+            <div style={{
+              padding: "4rem 2rem",
+              textAlign: "center",
+              border: "1px solid rgba(239,239,233,0.08)",
+              color: "rgba(239,239,233,0.3)",
+              marginTop: "2rem",
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+            }}>
               {initialProducts.length === 0
                 ? "No products in stock yet. Check back soon."
                 : `No accounts found for ${selectedPlatform}. Check back soon.`}
@@ -154,8 +157,10 @@ export default function Marketplace({ initialProducts = [] }) {
         </div>
       </section>
 
+      {/* ── Testimonials ── */}
       <Testimonials />
 
+      {/* ── Bulk Add Bar ── */}
       {selectedIds.size > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -169,53 +174,38 @@ export default function Marketplace({ initialProducts = [] }) {
             zIndex: 800,
             padding: "0.75rem 1rem",
             paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))",
-            background: "var(--bulk-bar-bg)",
-            borderTop: "1px solid var(--border-strong)",
+            background: "#111111",
+            borderTop: "1px solid rgba(239,239,233,0.18)",
             backdropFilter: "blur(20px)",
           }}
           id="bulk-add-bar"
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "0.75rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                fontWeight: 700,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--foreground)",
-                whiteSpace: "nowrap",
-              }}
-            >
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.75rem",
+            flexWrap: "wrap",
+          }}>
+            <span style={{
+              fontFamily: "var(--font-mono)", fontSize: "10px",
+              fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase",
+              color: "#EFEFE9", whiteSpace: "nowrap",
+            }}>
               {selectedIds.size} item{selectedIds.size > 1 ? "s" : ""} selected
             </span>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
               <button
                 onClick={() => setSelectedIds(new Set())}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.35rem",
-                  padding: "0.5rem 0.75rem",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  fontWeight: 700,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--text-subtle)",
-                  background: "transparent",
-                  border: "1px solid var(--border)",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
+                  display: "flex", alignItems: "center", gap: "0.35rem",
+                  padding: "0.5rem 0.75rem", fontFamily: "var(--font-mono)",
+                  fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em",
+                  textTransform: "uppercase", color: "rgba(239,239,233,0.4)",
+                  background: "transparent", border: "1px solid rgba(239,239,233,0.1)",
+                  cursor: "pointer", transition: "all 0.2s",
                 }}
+                className="hover:text-[#EFEFE9] hover:border-[rgba(239,239,233,0.3)]"
               >
                 <X size={12} /> Clear
               </button>
@@ -224,21 +214,12 @@ export default function Marketplace({ initialProducts = [] }) {
                 disabled={addableCount === 0}
                 id="bulk-add-btn"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.5rem 1.25rem",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  fontWeight: 700,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  background: "var(--accent-color)",
-                  color: "var(--accent-foreground-color)",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "opacity 0.2s",
-                  whiteSpace: "nowrap",
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                  padding: "0.5rem 1.25rem", fontFamily: "var(--font-mono)",
+                  fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em",
+                  textTransform: "uppercase", background: "#FF3B00",
+                  color: "#EFEFE9", border: "none", cursor: "pointer",
+                  transition: "opacity 0.2s", whiteSpace: "nowrap",
                 }}
                 className="hover:opacity-85 disabled:opacity-40 disabled:cursor-not-allowed"
               >
