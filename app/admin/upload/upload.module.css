@@ -227,6 +227,77 @@
   padding: 0.2rem 0.35rem;
 }
 
+.productRowContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.productRowContainer:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.productRowContainer.activeRow {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.productSelectBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex: 1;
+  padding: 0.9rem 0.5rem 0.9rem 0;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+}
+
+.productSelectBtn strong {
+  min-width: 2.25rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.35rem;
+}
+
+.productActions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.actionBtn {
+  background: transparent;
+  border: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: 2px;
+}
+
+.actionBtn:hover {
+  color: var(--foreground);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.deleteActionBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
 /* Modal overlay */
 .overlay {
   position: fixed;

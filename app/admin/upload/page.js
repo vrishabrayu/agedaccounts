@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { PackagePlus, RefreshCw, UploadCloud, Trash2, Key } from "lucide-react";
+import { PackagePlus, RefreshCw, UploadCloud, Trash2, Key, Edit2 } from "lucide-react";
 import { PLATFORMS } from "../../../data/platforms";
 import styles from "./upload.module.css";
 
@@ -133,6 +133,64 @@ export default function AdminUploadPage() {
       setMessage({ type: "success", text: "Account disabled successfully." });
       // Refresh accounts and products
       await fetchAccounts(form.productId);
+      await fetchProducts();
+    } catch (err) {
+      setMessage({ type: "error", text: err.message });
+    }
+  };
+
+  // 4a. Edit Product Name
+  const handleEditProduct = async (productId, currentName) => {
+    const newName = window.prompt("Enter new name for the product:", currentName);
+    if (newName === null) return; // user cancelled
+    const trimmedName = newName.trim();
+    if (!trimmedName) {
+      alert("Product name cannot be empty.");
+      return;
+    }
+    if (trimmedName === currentName) return;
+
+    try {
+      const res = await fetch(`/api/admin/products/${productId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ name: trimmedName }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to update product.");
+      }
+      setMessage({ type: "success", text: "Product name updated successfully." });
+      await fetchProducts();
+    } catch (err) {
+      setMessage({ type: "error", text: err.message });
+    }
+  };
+
+  // 4b. Delete Product
+  const handleDeleteProduct = async (productId, name) => {
+    if (!window.confirm(`Are you sure you want to delete "${name}"? This will delete all its credentials as well. This action cannot be undone.`)) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/admin/products/${productId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to delete product.");
+      }
+      setMessage({ type: "success", text: "Product deleted successfully." });
+      
+      // If the currently selected product was deleted, clear the selection
+      if (form.productId === productId) {
+        updateField("productId", "");
+      }
+      
       await fetchProducts();
     } catch (err) {
       setMessage({ type: "error", text: err.message });
@@ -408,15 +466,43 @@ export default function AdminUploadPage() {
                 <span>+ CREATE NEW PRODUCT</span>
               </button>
               {products.map((product) => (
-                <button
+                <div
                   key={product.id}
-                  className={`${styles.productRow} ${form.productId === product.id ? styles.activeRow : ""}`}
-                  onClick={() => updateField("productId", product.id)}
-                  type="button"
+                  className={`${styles.productRowContainer} ${form.productId === product.id ? styles.activeRow : ""}`}
                 >
-                  <span>{product.name}</span>
-                  <strong>{product.availableStock}</strong>
-                </button>
+                  <button
+                    className={styles.productSelectBtn}
+                    onClick={() => updateField("productId", product.id)}
+                    type="button"
+                  >
+                    <span>{product.name}</span>
+                    <strong>{product.availableStock}</strong>
+                  </button>
+                  <div className={styles.productActions}>
+                    <button
+                      type="button"
+                      className={styles.actionBtn}
+                      title="Edit Name"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditProduct(product.id, product.name);
+                      }}
+                    >
+                      <Edit2 size={13} />
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.actionBtn} ${styles.deleteActionBtn}`}
+                      title="Delete Product"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteProduct(product.id, product.name);
+                      }}
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           )}
